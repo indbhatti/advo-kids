@@ -53,6 +53,7 @@ export const options = {
               var newUser = new User({
                 username: profile.email,
                 googleId: account.providerAccountId,
+                language: "English",
                 progress: {
                   completed_questions: [0, 0, 0],
                   current_question: [1, 1, 1]

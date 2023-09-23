@@ -1,14 +1,19 @@
 import mongoose from 'mongoose';
 
 export interface StorylineSchema {
-  title: String,
-  description: String,
-  questions: []
+  storyline_number: number,
+  title: string,
+  description: string,
+  questions: number
+  language: string
 }
+
 const storylineSchema = new mongoose.Schema({
+  storyline_number: Number,
   title: String,
   description: String,
-  "questions": []
+  questions: Number,
+  language: String
 });
 
 // mongoose.models = {};

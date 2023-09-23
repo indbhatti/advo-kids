@@ -4,6 +4,7 @@ export interface QuestionSchema {
   questionStatement: String,
   questionNumber: number,
   storylineNumber: number,
+  language: String
   option1: String,
   option2: String,
   option3: String,
@@ -14,6 +15,7 @@ const questionSchema = new mongoose.Schema({
   questionStatement: String,
   questionNumber: Number,
   storylineNumber: Number,
+  language: String,
   option1: String,
   option2: String,
   option3: String,

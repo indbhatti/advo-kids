@@ -5,6 +5,7 @@ export interface UserType {
   password: string,
   googleId: string,
   nickname: string,
+  language: string,
   progress: {
     completed_questions: [],
     current_question: []
@@ -17,6 +18,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   googleId: String,
   nickname: String,
+  language: String,
   "progress": {
     "completed_questions": [Number],
     "current_question": [Number]

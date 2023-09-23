@@ -28,9 +28,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const newUser = new User({
       username,
       password: await hash(password, 12),
-      "progress": {
-        "completed_questions": [1, 1, 1],
-        "current_question": [0, 0, 0]
+      language: "English",
+      progress: {
+        completed_questions: [1, 1, 1],
+        current_question: [0, 0, 0]
       }
     });
 

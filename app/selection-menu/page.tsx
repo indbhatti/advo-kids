@@ -1,26 +1,23 @@
 import Card from './card'
 import { options } from '../api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
-
-
-
+import { getStorylines } from '../utility'
 
 export default async function play() {
   const data = await getServerSession(options)
-  const storylines = [{ storylineNumber: 1, title: "Journey to the school", description: "Journey to the school and the problems that come with that" }, { storylineNumber: 2, title: "School Hustle", description: "hustle" }]
-  const items: number[] = [1, 2, 3]
+  let lan = 'English'
+  const storylines = await getStorylines(lan)
   return (
     <div>
-      {storylines.map(({ storylineNumber, description, title }: { storylineNumber: number, description: string, title: string }) => (
+      {storylines.map(({ storyline_number, description, title, questions }: { storyline_number: number, description: string, title: string, questions: number }) => (
         <Card
-          storylineNumber={storylineNumber}
+          storylineNumber={storyline_number}
           title={title}
           description={description}
+          questions={questions}
+          data={data}
         />
       ))}
     </div>
   )
 }
-
-
-// Make a api call to storylines to get array of storyline

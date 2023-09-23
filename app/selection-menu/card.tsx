@@ -1,7 +1,12 @@
 import Image from 'next/image'
-export default function Card(
-  { storylineNumber, description, title }:
-    { storylineNumber: number, description: string, title: string }) {
+import Link from 'next/link'
+import { getUser } from '../utility'
+
+export default async function Card(
+  { storylineNumber, description, title, questions, data }:
+    { storylineNumber: number, description: string, title: string, questions: number }) {
+  const user = await getUser(data);
+
   return (
     <div className="container mx-auto my-14 w-2/3">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pb-0 rounded-lg border shadow-lg">
@@ -15,6 +20,15 @@ export default function Card(
           <p className="text-xl">
             {description}
           </p>
+          <Link href={`/quiz/${storylineNumber}`}>
+            <button className="bg-blue-500 text-white p-2 px-5 mt-5 rounded-full shadow shadow-gray-500 hover:brightness-75 w-1/2">
+              Go to
+            </button>
+          </Link>
+          <div className="bg-green-600 text-white p-2 px-5 my-5 rounded-full w-1/2 text-center">
+            Progress {user.progress.completed_questions[storylineNumber - 1]}/{questions}
+          </div>
+
           <div className="grid gap-2 md:flex md:justify-start mb-4 md:mb-3">
           </div>
         </div>

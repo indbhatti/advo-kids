@@ -1,3 +1,3 @@
 export { default } from 'next-auth/middleware'
 
-export const config = { matcher: ["/selection-menu", "/quiz"] }
+export const config = { matcher: ["/selection-menu", "/quiz/:path*"] }
