@@ -16,7 +16,7 @@ export default function Signin() {
   return (
     <div className="container flex flex-col items-center bg-gray-200 my-14 rounded-xl p-14">
       <h1 className="text-5xl">Sign In</h1>
-      <Form submit={submit} formType="Login" />
+      <Form submit={submit} />
       <SignInCard auth="Google" />
     </div>
   )

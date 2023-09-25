@@ -1,3 +1,14 @@
+export type SessionType = {
+  user: {
+    name: string,
+    email: string,
+    image: string,
+    userId: string,
+  }
+  expires: string,
+  accessToken: string
+}
+
 export const getUser = async (userId: string) => {
   try {
     const response = await fetch(`http://localhost:3000/api/users/${userId}`, {

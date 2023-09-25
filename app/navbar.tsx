@@ -3,10 +3,11 @@ import SignIn from './signin'
 import Dropdown from './dropdown'
 import { options } from './api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
+import { SessionType } from './utility'
 
 
 export default async function Navbar() {
-  const data = await getServerSession(options)
+  const data : SessionType | null = await getServerSession(options)
   return (
     <nav className="p-4 bg-kids">
       <div className="container">

@@ -1,8 +1,9 @@
 'use client'
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SignOut from './signout'
+import { SessionType } from './utility'
 
-export default function Dropdown({ data }) {
+export default function Dropdown({ data } : { data : SessionType }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -44,10 +45,10 @@ export default function Dropdown({ data }) {
               <a href="/selection-menu">Storyline Menu</a>
             </li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <a href="/profile/settings/">Settings</a>
+              <a href="/profile">Profile</a>
             </li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <a href="/profile">Profile</a>
+              <a href="/profile/settings/">Settings</a>
             </li>
             <SignOut />
           </ul>

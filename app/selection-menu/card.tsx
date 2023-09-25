@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { getUser } from '../utility'
+import { getUser, SessionType } from '../utility'
 
 export default async function Card(
   { storylineNumber, description, title, questions, data }:
-    { storylineNumber: number, description: string, title: string, questions: number }) {
+    { storylineNumber: number, description: string, title: string, questions: number, data: SessionType }) {
   const user = await getUser(data.user.userId);
 
   return (
@@ -20,11 +20,11 @@ export default async function Card(
           <p className="text-xl">
             {description}
           </p>
-          <Link href={`/quiz/${storylineNumber}`}>
+          <a href={`/quiz/${storylineNumber}`}>
             <button className="bg-blue-500 text-white p-2 px-5 mt-5 rounded-full shadow shadow-gray-500 hover:brightness-75 w-1/2">
               Go to
             </button>
-          </Link>
+          </a>
           <div className="bg-green-600 text-white p-2 px-5 my-5 rounded-full w-1/2 text-center">
             Progress {user.progress.completed_questions[storylineNumber - 1]}/{questions}
           </div>

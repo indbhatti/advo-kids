@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export interface StorylineSchema {
+export type StorylineSchema = {
   storyline_number: number,
   title: string,
   description: string,

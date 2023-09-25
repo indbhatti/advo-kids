@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export interface QuestionSchema {
+export type QuestionSchema = {
   questionStatement: String,
   questionNumber: number,
   storylineNumber: number,

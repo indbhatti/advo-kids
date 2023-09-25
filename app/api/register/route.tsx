@@ -6,12 +6,13 @@ import connectMongo from '../../../middleware/mongooseconnect';
 interface CreateUserRequestBody {
   username: string;
   password: string;
+  nickname: string;
 }
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json() as CreateUserRequestBody;
-    const { username, password } = body;
+    const { username, password, nickname } = body;
 
     // console.log('CONNECTING TO MONGO');
     const connect = await connectMongo(); // Make sure this function returns a Promise that resolves when MongoDB is connected
@@ -27,6 +28,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const newUser = new User({
       username,
+      nickname,
+      image: " ",
+      coins: 0,
       password: await hash(password, 12),
       language: "English",
       progress: {

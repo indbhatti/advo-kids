@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { StorylineSchema } from '../../../models/storylines'
+import { UserType } from '../../../models/user'
 import { QuestionSchema } from '../../../models/questions'
 import { options } from '../../api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
@@ -8,11 +8,10 @@ import { getStoryline, getUser, getQuestionSet } from '../../utility'
 
 export default async function Page({ params }: { params: { storyline: string } }) {
   const data = await getServerSession(options)
-  const user = await getUser(data.user.userId);
+  const user: UserType = await getUser(data.user.userId);
   const language = "English";
   const storyline: StorylineSchema = await getStoryline(language, params.storyline)
-  const questions = await getQuestionSet(language, params.storyline)
-  console.log(questions)
+  const questions: Array<QuestionSchema> = await getQuestionSet(language, params.storyline)
   return (
     <div className="container mx-auto my-14 w-2/3">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pb-0 rounded-lg border shadow-lg">
@@ -56,12 +55,11 @@ export default async function Page({ params }: { params: { storyline: string } }
           </div>
         </div>
         <div className="hidden md:block pb-4">
-          <Image
+          <img
             className="rounded-lg object-cover float-right"
             src={`/path${storyline.storyline_number}.jpg`}
             alt=""
-            height="720"
-            width="300" />
+          />
         </div>
       </div>
     </div>
