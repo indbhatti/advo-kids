@@ -9,6 +9,7 @@ export default function Dropdown({ data }) {
     setIsOpen(!isOpen);
   };
 
+  // {JSON.stringify(data)}
   return (
     <div className="relative">
       <button

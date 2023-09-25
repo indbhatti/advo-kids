@@ -13,9 +13,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const body = await request.json() as CreateUserRequestBody;
     const { username, password } = body;
 
-    console.log('CONNECTING TO MONGO');
+    // console.log('CONNECTING TO MONGO');
     const connect = await connectMongo(); // Make sure this function returns a Promise that resolves when MongoDB is connected
-    console.log('CONNECTED TO MONGO');
+    // console.log('CONNECTED TO MONGO');
 
     // Check if the username already exists
     const existingUser = await User.findOne({ username });
@@ -30,15 +30,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       password: await hash(password, 12),
       language: "English",
       progress: {
-        completed_questions: [1, 1, 1],
-        current_question: [0, 0, 0]
+        completed_questions: [0, 0, 0],
+        current_question: [1, 1, 1]
       }
     });
 
     // Create new user
     const userCreated = await newUser.save();
 
-    return NextResponse.json({ userCreated });
+    return NextResponse.json({ status: 200, userCreated });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "An error occurred", status: 500 }); // Internal Server Error

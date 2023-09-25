@@ -11,6 +11,7 @@ export default async function play() {
     <div>
       {storylines.map(({ storyline_number, description, title, questions }: { storyline_number: number, description: string, title: string, questions: number }) => (
         <Card
+          key={storyline_number}
           storylineNumber={storyline_number}
           title={title}
           description={description}

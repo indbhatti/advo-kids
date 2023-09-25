@@ -1,18 +1,17 @@
 import { NextResponse, NextRequest } from "next/server";
-import Question from '../../../models/questions';
-import connectMongo from '../../../middleware/mongooseconnect';
+import Question from '../../../../../../../models/questions';
+import connectMongo from '../../../../../../../middleware/mongooseconnect';
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: { params: { language: string, storyline: string, ques: string } }) {
 
-  const body = await request.json();
-  const { storylineNumber, number, language } = body;
+  const { language, storyline, ques } = params;
 
   try {
-    console.log('CONNECTING TO MONGO');
+    // console.log('CONNECTING TO MONGO');
     const connect = await connectMongo();
 
     if (connect) {
-      console.log('CONNECTED TO MONGO');
+      // console.log('CONNECTED TO MONGO');
       // var ques = Question.insertMany({
       //   questionStatement: "this is test question 2",
       //   questionNumber: 2,
@@ -24,7 +23,8 @@ export async function POST(request: NextRequest) {
       //   option4: "gmaasdfer1",
       //   answer: 1,
       // })
-      var question = await Question.findOne({ questionNumber: number, storylineNumber, language })
+      var question = await Question.findOne({ language, storylineNumber : storyline,  questionNumber: ques})
+      // console.log(question)
       if (question) {
         return NextResponse.json({ question });
       } else {
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       }
     }
     else {
-      return NextResponse.error();
+      return NextResponse.json( { error: " MONGO EROOR" }, { status: 404 } );
     }
 
   } catch (error) {

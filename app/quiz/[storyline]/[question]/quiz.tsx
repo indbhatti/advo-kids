@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { QuestionSchema } from '../../../../models/questions'
 import { useRouter } from 'next/navigation'
 
-export default function Options(data: { question: QuestionSchema, username: string, params: { question: string, storyline: string }}, ) {
+export default function Options(data: { question: QuestionSchema, username: string, params: { question: string, storyline: string } },) {
 
   const [selectedOption, setSelectedOption] = useState(0);
   const { question } = data;
@@ -21,15 +21,17 @@ export default function Options(data: { question: QuestionSchema, username: stri
             'Content-Type': 'application/json',
           }
         })
-
-        if (!response.ok) {
-          throw new Error('Failed to Post');
-        }
-        if (question.questionNumber === 7) {
+        console.log(JSON.stringify(response))
+        if (response.status === 409) {
           router.push(`/selection-menu/`)
         } else {
           router.push(`/quiz/${data.params.storyline}/${Number(data.params.question) + 1}`)
         }
+
+        if (!response.ok) {
+          throw new Error('Failed to Post');
+        }
+
       }
       catch (error) {
         console.error('Error Posting:', error);
@@ -48,7 +50,7 @@ export default function Options(data: { question: QuestionSchema, username: stri
       <div className="m-5">
         <div className="rounded-xl overflow-hidden">
           <video autoPlay controls width="100%">
-            <source src={`/question_videos/sl1/${question.questionNumber}.mp4`} type="video/mp4" />
+            <source src={`/question_videos/sl${data.params.storyline}/${question.questionNumber}.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>

@@ -5,7 +5,7 @@ import { getUser } from '../utility'
 export default async function Card(
   { storylineNumber, description, title, questions, data }:
     { storylineNumber: number, description: string, title: string, questions: number }) {
-  const user = await getUser(data);
+  const user = await getUser(data.user.userId);
 
   return (
     <div className="container mx-auto my-14 w-2/3">

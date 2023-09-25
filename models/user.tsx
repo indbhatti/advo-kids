@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
 export interface UserType {
+  _id: string,
   username: string,
   password: string,
+  image: string,
   googleId: string,
   nickname: string,
   language: string,
@@ -16,6 +18,7 @@ export interface UserType {
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
+  image: String,
   googleId: String,
   nickname: String,
   language: String,

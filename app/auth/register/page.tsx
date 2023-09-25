@@ -1,6 +1,7 @@
 'use client'
 import SignInCard from '../signincard';
 import Form from '../form'
+import { signIn } from 'next-auth/react';
 
 export default async function Register() {
 
@@ -25,6 +26,15 @@ export default async function Register() {
       if (result.status === 409) {
         alert('User already exists');
         throw new Error('User already exists', result)
+      } else if (result.status === 200) {
+        const status = await signIn('credentials', {
+          redirect: true,
+          email: user.username,
+          password: user.password,
+          callbackUrl: '/selection_menu'
+        });
+        console.log(status);
+
       }
     } catch (error) {
       console.error('An error occurred:', error);

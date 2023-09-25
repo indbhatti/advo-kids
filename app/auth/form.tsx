@@ -45,6 +45,8 @@ export default function Form({ submit, formType }: Props) {
           className="text-white bg-gray-500 rounded-lg p-2 mt-5 hover:bg-gray-600">
           {formType}
         </button>
+      </form>
+      <div className="flex flex-col">
         {formType === "Login" &&
           <Link href="/auth/register" className="text-white bg-gray-500 rounded-lg p-2 mt-5 hover:bg-gray-600 text-center">
             <button>
@@ -57,7 +59,7 @@ export default function Form({ submit, formType }: Props) {
           <span className="flex-shrink mx-4 text-gray-400">Or</span>
           <div className="flex-grow border-t border-gray-400"></div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

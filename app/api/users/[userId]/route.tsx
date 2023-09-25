@@ -1,19 +1,20 @@
 import { NextResponse, NextRequest } from "next/server";
-import User from '../../../models/user';
-import connectMongo from '../../../middleware/mongooseconnect';
+import User from '../../../../models/user';
+import connectMongo from '../../../../middleware/mongooseconnect';
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
 
-  const body = await request.json();
-  const { username } = body;
+  const { userId } = params
+  // console.log(params)
 
   try {
-    console.log('CONNECTING TO MONGO');
+    // console.log('CONNECTING TO MONGO');
     const connect = await connectMongo();
 
     if (connect) {
-      console.log('CONNECTED TO MONGO');
-      var user = await User.findOne({ username })
+      // console.log('CONNECTED TO MONGO');
+      var user = await User.findOne( { _id: userId } )
+      // console.log(user)
       if (user) {
         return NextResponse.json({ user });
       } else {
