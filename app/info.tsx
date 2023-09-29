@@ -4,38 +4,38 @@ export default function Info() {
   return (
     <div className="flex flex-col bg-info text-white pt-16 pb-5 mt-24" id="info">
 
-      <div className="mx-auto mb-10">
+      <div className="mx-auto mb-10 ">
         <h1 className="text-5xl inline underline underline-offset-8 decoration-kids">
-          <span className="text-red-600">ADVO</span>-KIDS
+          <span className="text-red-600 font-sans"><strong>ADVO</strong></span><span className='font-light font-sans'>-KIDS</span>
 
         </h1>
-        <p className="absolute inline ml-2"><strong> H C </strong></p>
+        <p className="absolute inline ml-2 font-sans font-bold"><strong> H C </strong></p>
       </div>
 
       <div className="container grid grid-cols-3">
 
-        <div className="p-3 text-center">
-          <h1 className="text-2xl">
+        <div className="p-3">
+          <h1 className="text-2xl font-sans font-bold">
             About Us
           </h1>
-          <p>
+          <p className="font-light font-thin">
             We are a dedicated team passionate about advocating for children's rights and raising awareness about their needs. Our mission is to create a safe, informed, and empowered environment for children everywhere.
           </p>
         </div>
 
         <div className="p-3 text-center">
-          <h1 className="text-2xl">
+          <h1 className="text-2xl font-sans font-bold">
             Useful Link
           </h1>
-          <ul>
+          <ul className='font-light font-thin'>
             <li>
               <Link href="">
-                Video games
+                Cartoon
               </Link>
             </li>
             <li>
               <Link href="">
-                Remote control
+                Puzzle
               </Link>
             </li>
             <li>
@@ -47,10 +47,10 @@ export default function Info() {
         </div>
 
         <div className="p-3 text-center">
-          <h1 className="text-2xl">
+          <h1 className="text-2xl  font-sans font-bold">
             Contact Us
           </h1>
-          <p>
+          <p className='font-light font-thin'>
             Phone Number <br />
             Police: 100 <br />
             Emergency: 111 <br />

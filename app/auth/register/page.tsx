@@ -43,7 +43,7 @@ export default async function Register() {
 
   return (
     <div className="container flex flex-col items-center bg-gray-200 my-14 rounded-xl p-14">
-      <h1 className="text-5xl">Register</h1>
+      <h1 className="text-5xl font-sans">Register</h1>
       <Form submit={submit} />
       <SignInCard auth="Google" />
 

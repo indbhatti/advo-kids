@@ -31,7 +31,7 @@ export default function Form({ submit }: Props) {
   return (
     <div>
       <form className="flex flex-col pt-8">
-        <label htmlFor="nickname" className="text-xl my-2">Nickname</label>
+        <label htmlFor="nickname" className="text-xl my-2 font-sans">Nickname</label>
         <input
           onChange={handleChange}
           id="nickname"
@@ -39,7 +39,7 @@ export default function Form({ submit }: Props) {
           autoComplete="on"
           className="rounded-lg p-1"
           name="nickname" />
-        <label htmlFor="email" className="text-xl my-2">Email</label>
+        <label htmlFor="email" className="text-xl my-2 font-sans">Email</label>
         <input
           onChange={handleChange}
           id="email"
@@ -47,14 +47,14 @@ export default function Form({ submit }: Props) {
           autoComplete="on"
           className="rounded-lg p-1"
           name="username" />
-        <label htmlFor="password" className="text-xl my-2">Password</label>
+        <label htmlFor="password" className="text-xl my-2 font-sans">Password</label>
         <input onChange={handleChange}
           id="password"
           type="password"
           autoComplete="off"
           className="rounded-lg p-1"
           name="password" />
-        <label htmlFor="password-verify" className="text-xl my-2">Verify Password</label>
+        <label htmlFor="password-verify" className="text-xl my-2 font-sans">Verify Password</label>
         <input onChange={handleChange}
           id="verifyPassword"
           type="password"
@@ -72,9 +72,9 @@ export default function Form({ submit }: Props) {
       </form>
       <div className="flex flex-col">
         <div className="relative flex py-5 items-center">
-          <div className="flex-grow border-t border-gray-400"></div>
-          <span className="flex-shrink mx-4 text-gray-400">Or</span>
-          <div className="flex-grow border-t border-gray-400"></div>
+          <div className="flex-grow border-t border-gray-400 font-sans"></div>
+          <span className="flex-shrink mx-4 text-gray-400 font-sans">Or</span>
+          <div className="flex-grow border-t border-gray-400 font-sans"></div>
         </div>
       </div>
     </div>

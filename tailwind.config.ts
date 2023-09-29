@@ -12,7 +12,7 @@ const config: Config = {
         center: true,
       },
       colors: {
-        kids: "#eac625",
+        kids: "#E8BF12",
         info: "#363636"
       },
       backgroundImage: {
