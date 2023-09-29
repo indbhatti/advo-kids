@@ -1,11 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { getUser, SessionType } from '../utility'
+import { SessionType } from '../utility'
+import { UserType } from '@/models/user'
 
 export default async function Card(
-  { storylineNumber, description, title, questions, data }:
-    { storylineNumber: number, description: string, title: string, questions: number, data: SessionType }) {
-  const user = await getUser(data.user.userId);
+  { storylineNumber, description, title, questions, data, user }:
+    { storylineNumber: number, description: string, title: string, questions: number, data: SessionType | null, user : UserType }) {
+  if (!data) {
+    return (<div></div>)
+  }
 
   return (
     <div className="container mx-auto my-14 w-2/3">

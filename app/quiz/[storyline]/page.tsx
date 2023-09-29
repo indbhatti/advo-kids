@@ -9,9 +9,8 @@ import { getStoryline, getUser, getQuestionSet } from '../../utility'
 export default async function Page({ params }: { params: { storyline: string } }) {
   const data = await getServerSession(options)
   const user: UserType = await getUser(data.user.userId);
-  const language = "English";
-  const storyline: StorylineSchema = await getStoryline(language, params.storyline)
-  const questions: Array<QuestionSchema> = await getQuestionSet(language, params.storyline)
+  const storyline: StorylineSchema = await getStoryline(user.language, params.storyline)
+  const questions: Array<QuestionSchema> = await getQuestionSet(user.language, params.storyline)
   return (
     <div className="container mx-auto my-14 w-2/3">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pb-0 rounded-lg border shadow-lg">

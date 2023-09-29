@@ -14,7 +14,7 @@ export default function Info() {
 
       <div className="container grid grid-cols-3">
 
-        <div className="p-3">
+        <div className="p-3 text-center">
           <h1 className="text-2xl">
             About Us
           </h1>

@@ -20,7 +20,7 @@ export const getUser = async (userId: string) => {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to Post');
+      throw new Error('Failed to Get');
     }
 
     const result = await response.json();
@@ -28,7 +28,7 @@ export const getUser = async (userId: string) => {
 
   }
   catch (error) {
-    console.error('Error Posting:', error);
+    console.error('Error Getting:', error);
   }
 }
 
@@ -43,7 +43,7 @@ export const getQues = async (language: string, storyline: string, question: str
     })
 
     if (!response.ok) {
-      throw new Error('Failed to Post');
+      throw new Error('Failed to Get');
     }
 
     const result = await response.json();
@@ -51,7 +51,7 @@ export const getQues = async (language: string, storyline: string, question: str
 
   }
   catch (error) {
-    console.error('Error Posting:', error);
+    console.error('Error Getting:', error);
   }
 }
 
@@ -66,7 +66,7 @@ export const getQuestionSet = async (language: string, storylineNumber: string) 
     })
 
     if (!response.ok) {
-      throw new Error('Failed to Post');
+      throw new Error('Failed to Get');
     }
 
     const result = await response.json();
@@ -74,7 +74,7 @@ export const getQuestionSet = async (language: string, storylineNumber: string) 
 
   }
   catch (error) {
-    console.error('Error Posting:', error);
+    console.error('Error Getting:', error);
   }
 }
 
@@ -89,7 +89,7 @@ export const getStoryline = async (language: string, number: string) => {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to Post');
+      throw new Error('Failed to Get');
     }
 
     const result = await response.json();
@@ -97,7 +97,7 @@ export const getStoryline = async (language: string, number: string) => {
 
   }
   catch (error) {
-    console.error('Error Posting:', error);
+    console.error('Error Getting:', error);
   }
 }
 
@@ -112,7 +112,7 @@ export const getStorylines = async (language: string) => {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to Post');
+      throw new Error('Failed to Get');
     }
 
     const result = await response.json();
@@ -120,7 +120,30 @@ export const getStorylines = async (language: string) => {
 
   }
   catch (error) {
-    console.error('Error Posting:', error);
+    console.error('Error Getting:', error);
   }
 }
 
+export const setLanguage = async (userId: string, language: string) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/users/${userId}/language`, {
+      method: "POST",
+      body: JSON.stringify({ language }),
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to Post');
+    }
+
+    const result = await response.json();
+    return result.language
+
+  }
+  catch (error) {
+    console.error('Error Posting:', error);
+  }
+}
