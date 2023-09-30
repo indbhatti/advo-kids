@@ -10,7 +10,9 @@ import Lang from './lang'
 
 export default async function Navbar() {
   const data: SessionType | null = await getServerSession(options)
-  const user: UserType = await getUser(data.user.userId);
+  if (data) {
+    var user: UserType = await getUser(data.user.userId);
+  }
 
   return (
     <nav className="p-4 bg-kids">
@@ -19,8 +21,8 @@ export default async function Navbar() {
           <Link className="text-white mb-3 lg:mb-0 text-3xl basis-1/6 font-sans" href="/">
             <strong><span className="text-red-600">
               ADVO</span>
-            <span>-KIDS
-            </span></strong>
+              <span>-KIDS
+              </span></strong>
           </Link>
           <ul className="flex space-x-4 mb-3 lg:mb-0 basis-2/6">
             <li>
@@ -37,7 +39,7 @@ export default async function Navbar() {
             </li>
           </ul>
           <ul className="flex space-x-4 basis-3/6 justify-end">
-            {user &&
+            {data && user &&
               <Lang userId={data.user.userId} />
             }
             <Link href="/selection-menu">
