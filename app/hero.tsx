@@ -16,7 +16,9 @@ export default function Hero() {
             </p>
             <div className="my-4">
               <Link href="/selection-menu">
-                <button className="text-black bg-white px-4 py-2 rounded-full translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-gray-500 active:bg-gray-400">Play Now</button>
+                <button className="bg-white text-black px-4 py-2 rounded-full translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-yellow-500 active:bg-green-400 font-serif">
+                  Play Now
+                </button>
               </Link>
             </div>
           </div>

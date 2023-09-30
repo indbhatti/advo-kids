@@ -6,7 +6,7 @@ export default function Info() {
 
       <div className="mx-auto mb-10">
         <h1 className="text-5xl inline underline underline-offset-8 decoration-kids">
-          <span className="text-red-600">ADVO</span>-KIDS
+          <strong><span className="text-red-600 font-sans">ADVO</span>-KIDS</strong>
 
         </h1>
         <p className="absolute inline ml-2"><strong> H C </strong></p>
@@ -18,7 +18,7 @@ export default function Info() {
           <h1 className="text-2xl">
             About Us
           </h1>
-          <p>
+          <p className="font-thin">
             We are a dedicated team passionate about advocating for children's rights and raising awareness about their needs. Our mission is to create a safe, informed, and empowered environment for children everywhere.
           </p>
         </div>

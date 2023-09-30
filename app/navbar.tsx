@@ -16,11 +16,11 @@ export default async function Navbar() {
     <nav className="p-4 bg-kids">
       <div className="container">
         <div className="flex flex-col lg:flex-row items-center">
-          <Link className="text-white mb-3 lg:mb-0 text-3xl basis-1/6" href="/">
+          <Link className="text-white mb-3 lg:mb-0 text-3xl basis-1/6 font-sans" href="/">
             <strong><span className="text-red-600">
-              ADVO</span></strong>
+              ADVO</span>
             <span>-KIDS
-            </span>
+            </span></strong>
           </Link>
           <ul className="flex space-x-4 mb-3 lg:mb-0 basis-2/6">
             <li>
@@ -38,10 +38,10 @@ export default async function Navbar() {
           </ul>
           <ul className="flex space-x-4 basis-3/6 justify-end">
             {user &&
-            <Lang userId={data.user.userId} />
+              <Lang userId={data.user.userId} />
             }
             <Link href="/selection-menu">
-              <button className="bg-white px-4 py-2 rounded-full transition ease-in-out shadow shadow-gray-500 active:bg-gray-400">
+              <button className="bg-white text-black px-4 py-2 rounded-full translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-yellow-500 active:bg-red-400 font-serif">
                 Play Now
               </button>
             </Link>

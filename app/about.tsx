@@ -10,7 +10,7 @@ export default function About() {
         </div>
       </div>
       <div className="basis-1/2">
-        <h1 className="text-5xl">
+        <h1 className="text-5xl font-serif font-bold">
           About our Education
         </h1>
         <p className="text-xl p-3">
@@ -18,9 +18,9 @@ export default function About() {
         </p>
         <div className="my-4">
           <Link href="/contact">
-            <button className="bg-white px-4 py-2 rounded-full translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-gray-500 active:bg-gray-400">
-            Contact Us
-            </button>
+                <button className="bg-white text-black px-4 py-2 rounded-full translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-yellow-500 active:bg-red-400 font-serif">
+                Contact Us
+                </button>
           </Link>
         </div>
       </div>
