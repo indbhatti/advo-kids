@@ -62,7 +62,7 @@ export default function Options({ question, username, params, language }:
           <div className="container bg-kids z-20 fixed rounded-3xl p-8 h-xxl md:grid flex flex-col grid-cols-3 place-items-center font-sans font-extrabold">
             {isCorrect === "YES" ?
               // <h1 className="text-5xl pb-10 col-span-2 font-sans">GOOD JOB!! YOU ARE CORRECT</h1>
-              <div><img src={`/correct.png`} alt="Correct" />
+              <div className="row-span-2"><img src={`/correct.png`} alt="Correct" />
                 <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>
                   {language === "English" ? "C O R R E C T !" : hindi.right}
                 </h1>
@@ -94,6 +94,12 @@ export default function Options({ question, username, params, language }:
                 className="bg-red-500 text-center md:inline text-white p-8 px-12 mt-5 text-4xl rounded-half shadow shadow-gray-500 hover:brightness-75 w-xl font-sans">
                 {language === "English" ? "Try Again" : hindi.tryAgain}
               </button>
+            }
+            {isCorrect === "YES" &&
+              <h1
+                className="col-start-2 col-span-2 text-4xl">
+                {language === "English" ? "YOU WIN 300 COINS" : hindi.win}
+              </h1>
             }
           </div>
         </div>

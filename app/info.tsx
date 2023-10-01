@@ -2,10 +2,10 @@ import Link from 'next/link'
 
 export default function Info() {
   return (
-    <div className="flex flex-col bg-bluekid text-white pt-16 pb-5 mt-24" id="info">
+    <div className="flex flex-col bg-bluekid text-white pt-16 pb-5" id="info">
 
       <div className="mx-auto mb-10">
-        <h1 className="text-5xl inline underline underline-offset-8 decoration-kids">
+        <h1 className="text-5xl inline decoration-kids">
           <strong><span className="text-red-600 font-sans">ADVO</span><span className="font-sans">-KIDS</span></strong>
 
         </h1>
@@ -15,7 +15,7 @@ export default function Info() {
       <div className="container grid grid-cols-3">
 
         <div className="p-3 text-center">
-          <h1 className="text-2xl font-serif underline underline-offset-6">
+          <h1 className="text-2xl font-serif">
             About Us
           </h1>
           <p className="font-sans">
@@ -24,7 +24,7 @@ export default function Info() {
         </div>
 
         <div className="p-3 text-center font-sans">
-          <h1 className="text-2xl font-serif underline underline-offset-6">
+          <h1 className="text-2xl font-serif">
             Useful Link
           </h1>
           <ul className='font-sans'>
@@ -47,7 +47,7 @@ export default function Info() {
         </div>
 
         <div className="p-3 text-center">
-          <h1 className="text-2xl font-serif underline underline-offset-6">
+          <h1 className="text-2xl font-serif">
             Contact Us
           </h1>
           <p className='font-sans font-semibold'>

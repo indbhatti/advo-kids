@@ -42,11 +42,14 @@ export default async function Navbar() {
             {data && user &&
               <Lang userId={data.user.userId} />
             }
-            <Link href="/selection-menu">
-              <button className="bg-white text-black px-4 py-2 translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-red-400 active:bg-red-400 font-sans font-extrabold">
-                PLAY NOW
-              </button>
-            </Link>
+            <div>
+            <div className="inline px-3 text-white">Rewards</div>
+              <Link href="/selection-menu">
+                <button className="bg-white text-black px-4 py-2 hover:bg-red-100 shadow shadow-red-400 active:bg-red-400 font-sans font-extrabold">
+                  PLAY NOW
+                </button>
+              </Link>
+            </div>
             {data ? (
               <Dropdown data={data} />
             ) : (

@@ -7,7 +7,7 @@ const hindi = {
   submit: "जमा करे",
   right: "सही जवाब।",
   wrong: "गलत जवाब।",
-
+  win: "आप 300 सिक्के जीतते हैं!!"
 }
 
 export default hindi

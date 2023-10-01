@@ -50,16 +50,15 @@ export default async function Page({ params }: { params: { question: string, sto
 
   if (data && data.user && data.user.email) {
     return (
-      <div>
-        <div className="container">
-          <Quiz
-            question={question}
-            username={data.user.email}
-            params={params}
-            language={user.language}
-          />
-        </div>
-      </div>)
+      <div className="container my-10">
+        <Quiz
+          question={question}
+          username={data.user.email}
+          params={params}
+          language={user.language}
+        />
+      </div>
+    )
 
   }
 }

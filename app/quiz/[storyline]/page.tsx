@@ -27,29 +27,29 @@ export default async function Page({ params }: { params: { storyline: string } }
           </p>
 
           <Link href={`/quiz/${storyline.storyline_number}/${user.progress.current_question[storyline.storyline_number - 1]}`}>
-            <button className="bg-blue-500 text-white p-2 px-5 mt-5 rounded-full font-sans shadow shadow-gray-500 hover:brightness-75 w-1/2">
+            <button className="bg-blue-500 text-white p-2 px-5 mt-5 rounded-lg font-sans shadow shadow-gray-500 hover:brightness-75 w-1/2">
               Play
             </button>
           </Link>
-          <div className="bg-green-600 text-white font-bold p-2 px-5 my-5 mb-10 rounded-full w-1/2 text-center font-sans ">
+          <div className="bg-green-600 text-white font-bold p-2 px-5 my-5 mb-10 rounded-lg w-1/2 text-center font-sans ">
             Progress {user.progress.completed_questions[storyline.storyline_number - 1]}/{storyline.questions}
           </div>
           {questions.map((question: QuestionSchema) => (
             <div
               key={question.questionNumber}
-              className={`p-2 px-5 my-5 rounded-full font-sans  text-white
-                  ${user.progress.completed_questions[0] < question.questionNumber ? ("bg-red-500") : ("bg-green-500")}`}
+              className={`p-2 px-5 my-5 rounded-lg font-sans  text-white
+                  ${user.progress.completed_questions[storyline.storyline_number - 1] < question.questionNumber ? ("bg-red-500") : ("bg-green-500")}`}
             >
               <div className="flex justify-between items-center font-sans ">
                 <div>
                   Question {question.questionNumber}
                 </div>
-                {user.progress.completed_questions[0] < question.questionNumber ?
+                {user.progress.completed_questions[storyline.storyline_number - 1] + 1 < question.questionNumber ?
                   <div></div>
                   :
                   <Link
                     href={`/quiz/${storyline.storyline_number}/${question.questionNumber}`}
-                    className="bg-darkkids px-2 rounded-full font-sans ">
+                    className="bg-darkkids px-2 rounded-lg font-sans ">
                     Go to
                   </Link>
                 }

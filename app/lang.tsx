@@ -39,7 +39,7 @@ export default function Lang({ userId }: { userId: string }) {
   }
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center text-white">
       <div className="relative">
         <button
           onClick={toggleDropdown}
@@ -60,7 +60,7 @@ export default function Lang({ userId }: { userId: string }) {
           </svg>
         </button>
         {isOpen && (
-          <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+          <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10 text-black">
             <ul className="py-2 divide-y">
               <li
                 onClick={handleChange}
