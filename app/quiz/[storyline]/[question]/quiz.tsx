@@ -64,14 +64,14 @@ export default function Options({ question, username, params, language }:
               // <h1 className="text-5xl pb-10 col-span-2 font-sans">GOOD JOB!! YOU ARE CORRECT</h1>
               <div><img src={`/correct.png`} alt="Correct" />
                 <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>
-                {language === "English" ? "C O R R E C T !" : hindi.right}
+                  {language === "English" ? "C O R R E C T !" : hindi.right}
                 </h1>
               </div>
               :
               <div>
                 <img src={`/incorrect.png`} alt="Incorrect" />
                 <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>
-                {language === "English" ? "I N C O R R E C T" : hindi.wrong}
+                  {language === "English" ? "I N C O R R E C T" : hindi.wrong}
                 </h1>
               </div>
             }
@@ -122,25 +122,25 @@ export default function Options({ question, username, params, language }:
             className={`text-white col-span-2 rounded-xl p-3 shadow shadow-gray-500 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 1 ? 'bg-green-500' : 'bg-darkkids'}`}
             onClick={() => handleOptionClick(1)}
           >
-            {question.option1}
+            <span className="text-black">A.</span> {question.option1}
           </button>
           <button
             className={`col-span-2  text-white rounded-xl p-3 shadow shadow-gray-500 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 2 ? 'bg-green-500' : 'bg-darkkids'}`}
             onClick={() => handleOptionClick(2)}
           >
-            {question.option2}
+            <span className="text-black">B.</span> {question.option2}
           </button>
           <button
             className={`col-span-2 rounded-xl text-white p-3 shadow shadow-gray-500 text-xl font-bold transition font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 3 ? 'bg-green-500' : 'bg-darkkids'}`}
             onClick={() => handleOptionClick(3)}
           >
-            {question.option3}
+            <span className="text-black">C.</span> {question.option3}
           </button>
           <button
             className={`col-span-2 rounded-xl p-3 shadow text-white shadow-gray-500 text-xl font-bold font-sans transition ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 4 ? 'bg-green-500' : 'bg-darkkids'}`}
             onClick={() => handleOptionClick(4)}
           >
-            {question.option4}
+            <span className="text-black">D.</span> {question.option4}
           </button>
           {params.question != "1" &&
             <button
