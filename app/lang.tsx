@@ -45,7 +45,7 @@ export default function Lang({ userId }: { userId: string }) {
           onClick={toggleDropdown}
           className="flex items-center space-x-2"
         >
-          <h1>Language</h1>
+          <h1 className="font-bold" >Language</h1>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-600"
@@ -64,13 +64,13 @@ export default function Lang({ userId }: { userId: string }) {
             <ul className="py-2 divide-y">
               <li
                 onClick={handleChange}
-                className={`${language === "English" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer`}>
+                className={`${language === "English" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}>
                 English
               </li>
               <li
                 onClick={handleChange}
                 defaultValue="English"
-                className={`${language === "Hindi" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer`}>
+                className={`${language === "Hindi" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}>
                 हिंदी
               </li>
             </ul>
