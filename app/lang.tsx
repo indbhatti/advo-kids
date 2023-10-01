@@ -71,7 +71,7 @@ export default function Lang({ userId }: { userId: string }) {
                 onClick={handleChange}
                 defaultValue="English"
                 className={`${language === "Hindi" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer`}>
-                Hindi
+                हिंदी
               </li>
             </ul>
           </div>
