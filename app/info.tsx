@@ -12,7 +12,7 @@ export default function Info() {
         <p className="absolute inline ml-2"><strong> H C </strong></p>
       </div>
 
-      <div className="container grid grid-cols-3">
+      <div className="container sm:grid sm:grid-cols-3">
 
         <div className="p-3 text-center">
           <h1 className="text-2xl font-serif">

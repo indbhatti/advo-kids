@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { QuestionSchema } from '../../../../models/questions'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import hindi from '../../../../hindi'
 
 export default function Options({ question, username, params, language }:
@@ -60,7 +59,10 @@ export default function Options({ question, username, params, language }:
         <div>
           <div className="bg-black opacity-70 z-10 h-screen w-screen fixed left-0 top-0">
           </div>
-          <div className="container bg-kids z-20 fixed rounded-3xl p-8 h-xxl md:grid flex flex-col grid-cols-3 place-items-center font-sans font-extrabold">
+          <div className="
+          container bg-kids z-20 fixed rounded-3xl p-8
+          md:grid flex flex-col grid-cols-3 place-items-center
+          font-sans font-extrabold">
             {isCorrect === "YES" ?
               // <h1 className="text-5xl pb-10 col-span-2 font-sans">GOOD JOB!! YOU ARE CORRECT</h1>
               <div className="row-span-2">

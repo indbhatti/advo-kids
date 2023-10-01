@@ -4,10 +4,10 @@ import Link from "next/link"
 export default function Hero() {
   return (
     <div>
-      <div className="flex flex-col lg:flex-row container justify-center items-center p-14">
+      <div className="flex flex-col-reverse lg:flex-row container justify-center items-center p-14">
         <div className="basis-1/2">
           <div className="text-white">
-            <h1 className="text-6xl font-sans"><strong>
+            <h1 className="text-4xl sm:text-6xl font-sans"><strong>
               BEST WAY TO <span style={{ color: "brown" }}><br /><strong>STUDY</strong></span> ABOUT<br /> THE
               <span style={{ color: "blue" }}> <strong>LAWS</strong></span> AND <span style={{ color: "red" }}><br /><strong>RIGHTS</strong></span>
             </strong></h1>

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function About() {
   return (
-    <div className="flex flex-col lg:flex-row container justify-center items-center px-14 pt-56" id="about">
+    <div className="flex flex-col lg:flex-row container justify-center items-center px-14 sm:pt-56" id="about">
       <div className="basis-1/2 my-5">
         <div>
           <Image src="/why1.png" width="600" height="700" alt="" className="img-fluid" />
