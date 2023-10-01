@@ -9,13 +9,13 @@ import { Account, TokenSet, User } from "next-auth";
 
 export type SessionType = {
   user: {
-    name: string | unknown,
-    email: string | unknown,
-    image: string | unknown,
-    userId: string | unknown,
+    name: string,
+    email: string,
+    image: string,
+    userId: string,
   }
-  expires: string | unknown,
-  accessToken: string | unknown,
+  expires: string,
+  accessToken: string,
 }
 
 
@@ -122,13 +122,7 @@ export const options = {
       // console.log(token)
       return token;
     },
-    // That token store in session
-    /***
-     *
-     * Replace the session type with your relevant session type
-     *
-     */
-    async session({ session, token }: { session: SessionType; token: TokenSet }) {
+    async session({ session, token }: { session: any , token: TokenSet }) {
       // this token return above jwt()
       session.accessToken = token.accessToken;
       session.user.userId = token.userId;

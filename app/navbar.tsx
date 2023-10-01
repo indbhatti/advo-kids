@@ -10,8 +10,9 @@ import Lang from './lang'
 
 export default async function Navbar() {
   const data: SessionType | null = await getServerSession(options)
-  if (data) {
-    var user: UserType = await getUser(data.user.userId);
+  let user : UserType | null = null
+  if (data && data.user) {
+    user = await getUser(data.user.userId);
   }
 
   return (
@@ -24,7 +25,7 @@ export default async function Navbar() {
               <span>-KIDS
               </span></strong>
           </Link>
-          <ul className="flex space-x-4 mb-3 lg:mb-0 basis-2/6 font-sans font-semibold">
+          <ul className="md:flex hidden lg:visible space-x-4 mb-3 lg:mb-0 basis-2/6 font-sans font-semibold">
             <li>
               <Link href="/" className="text-white hover:text-gray-300">Home</Link>
             </li>
@@ -38,24 +39,24 @@ export default async function Navbar() {
               <Link href="/#info" className="text-white hover:text-gray-300">Contact</Link>
             </li>
           </ul>
-          <ul className="flex space-x-4 basis-3/6 justify-end font-sans font-semibold">
-            {data && user &&
-              <Lang userId={data.user.userId} />
+          <div className="flex flex-row items-center space-x-4 basis-3/6 justify-end font-sans font-semibold">
+            <Link href="/selection-menu">
+              <button className="bg-white text-black px-4 py-2 hover:bg-red-100 shadow shadow-red-400 active:bg-red-400 font-sans font-extrabold">
+                PLAY NOW
+              </button>
+            </Link>
+            {data &&
+              <div className="inline px-3 text-white">Rewards</div>
             }
-            <div>
-            <div className="inline px-3 text-white">Rewards</div>
-              <Link href="/selection-menu">
-                <button className="bg-white text-black px-4 py-2 hover:bg-red-100 shadow shadow-red-400 active:bg-red-400 font-sans font-extrabold">
-                  PLAY NOW
-                </button>
-              </Link>
-            </div>
+            {data && user &&
+              <Lang userId={data.user.userId} userLanguage={user.language} />
+            }
             {data ? (
               <Dropdown data={data} />
             ) : (
               <SignIn />
             )}
-          </ul>
+          </div>
         </div>
       </div>
     </nav>

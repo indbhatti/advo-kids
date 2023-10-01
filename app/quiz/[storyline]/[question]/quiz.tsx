@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { QuestionSchema } from '../../../../models/questions'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import hindi from '../../../../hindi'
 
 export default function Options({ question, username, params, language }:
@@ -62,14 +63,23 @@ export default function Options({ question, username, params, language }:
           <div className="container bg-kids z-20 fixed rounded-3xl p-8 h-xxl md:grid flex flex-col grid-cols-3 place-items-center font-sans font-extrabold">
             {isCorrect === "YES" ?
               // <h1 className="text-5xl pb-10 col-span-2 font-sans">GOOD JOB!! YOU ARE CORRECT</h1>
-              <div className="row-span-2"><img src={`/correct.png`} alt="Correct" />
+              <div className="row-span-2">
+                <img
+                  src={`/correct.png`}
+                  alt="Correct"
+                  className="h-60 md:h-full md:w-full w-auto"
+                />
                 <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>
                   {language === "English" ? "C O R R E C T !" : hindi.right}
                 </h1>
               </div>
               :
               <div>
-                <img src={`/incorrect.png`} alt="Incorrect" />
+                <img
+                  src={`/incorrect.png`}
+                  alt="Incorrect"
+                  className="h-60 md:h-full md:w-full w-auto"
+                />
                 <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>
                   {language === "English" ? "I N C O R R E C T" : hindi.wrong}
                 </h1>
@@ -123,27 +133,27 @@ export default function Options({ question, username, params, language }:
         <h1 className="text-5xl mt-5 font-sans font-extrabold">{language === "English" ? "Question" : hindi.quesiton} {question.questionNumber}:</h1>
         <p className="text-xl my-5 font-sans font-bold">{question.questionStatement}</p>
 
-        <div className="grid grid-cols-4 my-4 gap-4">
+        <div className="flex flex-col md:grid md:grid-cols-4 my-4 gap-4">
           <button
-            className={`text-white col-span-2 rounded-xl p-3 shadow shadow-gray-500 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 1 ? 'bg-green-500' : 'bg-darkkids'}`}
+            className={`text-white md:col-span-2 rounded-xl p-3 shadow shadow-gray-500 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 1 ? 'bg-green-500' : 'bg-darkkids'}`}
             onClick={() => handleOptionClick(1)}
           >
             <span className="text-black">A.</span> {question.option1}
           </button>
           <button
-            className={`col-span-2  text-white rounded-xl p-3 shadow shadow-gray-500 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 2 ? 'bg-green-500' : 'bg-darkkids'}`}
+            className={`md:col-span-2 text-white rounded-xl p-3 shadow shadow-gray-500 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 2 ? 'bg-green-500' : 'bg-darkkids'}`}
             onClick={() => handleOptionClick(2)}
           >
             <span className="text-black">B.</span> {question.option2}
           </button>
           <button
-            className={`col-span-2 rounded-xl text-white p-3 shadow shadow-gray-500 text-xl font-bold transition font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 3 ? 'bg-green-500' : 'bg-darkkids'}`}
+            className={`md:col-span-2 rounded-xl text-white p-3 shadow shadow-gray-500 text-xl font-bold transition font-sans ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 3 ? 'bg-green-500' : 'bg-darkkids'}`}
             onClick={() => handleOptionClick(3)}
           >
             <span className="text-black">C.</span> {question.option3}
           </button>
           <button
-            className={`col-span-2 rounded-xl p-3 shadow text-white shadow-gray-500 text-xl font-bold font-sans transition ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 4 ? 'bg-green-500' : 'bg-darkkids'}`}
+            className={`md:col-span-2 rounded-xl p-3 shadow text-white shadow-gray-500 text-xl font-bold font-sans transition ease-in-out hover:opacity-90 active:brightness-150 ${selectedOption === 4 ? 'bg-green-500' : 'bg-darkkids'}`}
             onClick={() => handleOptionClick(4)}
           >
             <span className="text-black">D.</span> {question.option4}

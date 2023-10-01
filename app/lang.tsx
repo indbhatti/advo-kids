@@ -14,7 +14,7 @@ export function useFirstRender() {
 }
 
 
-export default function Lang({ userId }: { userId: string }) {
+export default function Lang({ userId, userLanguage }: { userId: string, userLanguage: string }) {
 
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function Lang({ userId }: { userId: string }) {
           onClick={toggleDropdown}
           className="flex items-center space-x-2"
         >
-          <h1 className="font-bold" >Language</h1>
+          <h1 className="font-bold" >{userLanguage === "English" ? "English" : "हिंदी"}</h1>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-600"
