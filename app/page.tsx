@@ -5,7 +5,6 @@ import Why from './why'
 
 export default function Home() {
   return (
- 
     <div>
       <div className="top_container">
         <Hero />

@@ -3,43 +3,52 @@ import SignIn from './signin'
 import Dropdown from './dropdown'
 import { options } from './api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
-import { SessionType } from './utility'
+import { SessionType, getUser } from './utility'
+import { UserType } from '@/models/user'
+import Lang from './lang'
 
 
 export default async function Navbar() {
-  const data : SessionType | null = await getServerSession(options)
+  const data: SessionType | null = await getServerSession(options)
+  if (data) {
+    var user: UserType = await getUser(data.user.userId);
+  }
+
   return (
     <nav className="p-4 bg-kids">
       <div className="container">
         <div className="flex flex-col lg:flex-row items-center">
-          <Link className="text-white mb-3 lg:mb-0 text-3xl basis-1/6" href="/">
+          <Link className="text-white mb-3 lg:mb-0 text-3xl basis-1/6 font-sans" href="/">
             <strong><span className="text-red-600 font-sans">
-              ADVO</span></strong>
-            <span className='font-sans' ><strong>-KIDS</strong>
-            </span>
+              ADVO</span>
+              <span>-KIDS
+              </span></strong>
           </Link>
-          <ul className="flex space-x-4 mb-3 lg:mb-0 basis-2/6">
+          <ul className="flex space-x-4 mb-3 lg:mb-0 basis-2/6 font-sans font-semibold">
             <li>
-              <Link href="/" className="text-white hover:text-gray-300 font-sans font-semibold">Home</Link>
+              <Link href="/" className="text-white hover:text-gray-300">Home</Link>
             </li>
             <li>
-              <Link href="/#about" className="text-white hover:text-gray-300 font-sans font-semibold">About</Link>
+              <Link href="/#about" className="text-white hover:text-gray-300">About</Link>
             </li>
             <li>
-              <Link href="/#why" className="text-white hover:text-gray-300 font-sans font-semibold">Why us?</Link>
+              <Link href="/#why" className="text-white hover:text-gray-300">Why us?</Link>
             </li>
             <li>
-              <Link href="/#info" className="text-white hover:text-gray-300 font-sans font-semibold">Contact</Link>
+              <Link href="/#info" className="text-white hover:text-gray-300">Contact</Link>
             </li>
           </ul>
-          <ul className="flex space-x-4 basis-3/6 justify-end">
+          <ul className="flex space-x-4 basis-3/6 justify-end font-sans font-semibold">
+            {data && user &&
+              <Lang userId={data.user.userId} />
+            }
             <Link href="/selection-menu">
-              <button className="bg-white px-4 py-2 rounded-full transition ease-in-out shadow shadow-orange-500 active:bg-red-400 font-sans">
-                Play Now
+              <button className="bg-white text-black px-4 py-2 translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-red-400 active:bg-red-400 font-sans font-extrabold">
+                PLAY NOW
               </button>
             </Link>
             {data ? (
-            <Dropdown data={data} />
+              <Dropdown data={data} />
             ) : (
               <SignIn />
             )}

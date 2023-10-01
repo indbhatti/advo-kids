@@ -12,7 +12,7 @@ export default function Card({ auth }: CardProps) {
         <button
           className="bg-yellow-400 pr-4 mt-5 rounded-lg shadow shadow-gray-500 text-white hover:bg-yellow-500"
           onClick={() => signIn(auth.toLowerCase())} role="button">
-          <Image src={`/${auth.toLowerCase()}.png`} height="64" width="64" alt='' className="inline mr-2 font-sans" />
+          <Image src={`/${auth.toLowerCase()}.png`} height="64" width="64" alt='' className="inline mr-2" />
           Sign In with {auth}
         </button>
       </div>

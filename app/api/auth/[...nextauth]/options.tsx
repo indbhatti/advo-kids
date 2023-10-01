@@ -5,9 +5,9 @@ import connectMongo from "../../../../middleware/mongooseconnect";
 import UserMongo from "../../../../models/user";
 import { UserType } from "../../../../models/user";
 import { compare } from "bcryptjs";
-import { Account, RequestInternal, TokenSet, User } from "next-auth";
+import { Account, TokenSet, User } from "next-auth";
 
-type SessionType = {
+export type SessionType = {
   user: {
     name: string | unknown,
     email: string | unknown,
@@ -107,6 +107,8 @@ export const options = {
             token.userId = user._id;
             token.name = user.nickname;
             token.picture = user.image;
+          } else {
+            console.log("User not found")
           }
         } catch (error) {
           console.log(error);
@@ -126,12 +128,12 @@ export const options = {
      * Replace the session type with your relevant session type
      *
      */
-    async session({ session, token }: { session: SessionType ; token: TokenSet }) {
+    async session({ session, token }: { session: SessionType; token: TokenSet }) {
       // this token return above jwt()
       session.accessToken = token.accessToken;
       session.user.userId = token.userId;
       //if you want to add user details info
-      console.log(session);
+      // console.log(session);
       return session;
     },
     async redirect() {

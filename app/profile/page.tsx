@@ -13,7 +13,7 @@ export default async function Profile() {
 
     return (
       <div className="bg-gray-300 container rounded-3xl p-3 my-28">
-        <h1 className="text-5xl text-center font-sans">
+        <h1 className="text-5xl text-center">
           Profile
         </h1>
         <img src={JSON.stringify(user.image).slice(1, -1)} alt="mdo" width="100" height="100" className="rounded-circle" />
