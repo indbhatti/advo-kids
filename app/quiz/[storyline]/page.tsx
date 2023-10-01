@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { storyline: string } }
   const questions: Array<QuestionSchema> = await getQuestionSet(user.language, params.storyline)
   return (
     <div className="container mx-auto my-14 w-2/3">
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pb-0 rounded-lg border shadow-lg">
         <div className="p-3 md:p-5 md:pt-3">
           <h1 className="text-4xl font-extrabold text-body-emphasis font-sans ">
@@ -44,9 +44,15 @@ export default async function Page({ params }: { params: { storyline: string } }
                 <div>
                   Question {question.questionNumber}
                 </div>
-                <div className="bg-green-500 p-2 rounded-full font-sans ">
-                  Go to
-                </div>
+                {user.progress.completed_questions[0] < question.questionNumber ?
+                  <div></div>
+                  :
+                  <Link
+                    href={`/quiz/${storyline.storyline_number}/${question.questionNumber}`}
+                    className="bg-darkkids px-2 rounded-full font-sans ">
+                    Go to
+                  </Link>
+                }
               </div>
             </div>
           ))}
