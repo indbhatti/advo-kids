@@ -52,7 +52,12 @@ export default async function Page({ params }: { params: { question: string, sto
     return (
       <div>
         <div className="container">
-          <Quiz question={question} username={data.user.email} params={params} />
+          <Quiz
+            question={question}
+            username={data.user.email}
+            params={params}
+            language={user.language}
+          />
         </div>
       </div>)
 

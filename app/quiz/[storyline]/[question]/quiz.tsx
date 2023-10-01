@@ -3,17 +3,18 @@ import { useState } from 'react'
 import { QuestionSchema } from '../../../../models/questions'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import hindi from '../../../../hindi'
 
-export default function Options(data: { question: QuestionSchema, username: string, params: { question: string, storyline: string } },) {
+export default function Options({ question, username, params, language }:
+  { question: QuestionSchema, username: string, params: { question: string, storyline: string }, language: string },) {
 
   const [selectedOption, setSelectedOption] = useState(0);
   const [isCorrect, setIsCorrect] = useState("CLEAR");
-  const { question } = data;
   const router = useRouter();
 
   const handleClick = async () => {
     if (selectedOption === question.answer) {
-      const dataToPost = { username: data.username, number: question.questionNumber, storylineNumber: question.storylineNumber }
+      const dataToPost = { username: username, number: question.questionNumber, storylineNumber: question.storylineNumber }
       try {
         const response = await fetch("http://localhost:3000/api/correct", {
           method: "POST",
@@ -45,7 +46,7 @@ export default function Options(data: { question: QuestionSchema, username: stri
 
   const handleNextClick = () => {
     setIsCorrect("CLEAR");
-    router.push(`/quiz/${data.params.storyline}/${Number(data.params.question) + 1}`)
+    router.push(`/quiz/${params.storyline}/${Number(params.question) + 1}`)
   }
 
   const handleOptionClick = (option: number) => {
@@ -62,38 +63,42 @@ export default function Options(data: { question: QuestionSchema, username: stri
             {isCorrect === "YES" ?
               // <h1 className="text-5xl pb-10 col-span-2 font-sans">GOOD JOB!! YOU ARE CORRECT</h1>
               <div><img src={`/correct.png`} alt="Correct" />
-              <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>C O R R E C T !</h1>
+                <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>
+                {language === "English" ? "C O R R E C T !" : hindi.right}
+                </h1>
               </div>
               :
               <div>
-              <img src={`/incorrect.png`} alt="Incorrect" />
-              <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>I N C O R R E C T !</h1>
+                <img src={`/incorrect.png`} alt="Incorrect" />
+                <h1 className='text-center font-sans font-extrabold text-xl  bg-white'>
+                {language === "English" ? "I N C O R R E C T" : hindi.wrong}
+                </h1>
               </div>
-              }
+            }
             <Link
               href="/selection-menu"
               className="bg-bluekid block text-center md:inline  text-white p-8 px-12 mt-5 text-4xl rounded-half shadow shadow-gray-500 hover:brightness-75 w-xl font-sans">
               <button>
-                MENU
+                {language === "English" ? "Menu" : hindi.menu}
               </button>
             </Link>
             {isCorrect === "YES" ?
               <button
                 onClick={handleNextClick}
                 className="bg-green-500 block text-center md:inline text-white p-8 px-12 mt-5 text-4xl rounded-half shadow shadow-gray-500 hover:brightness-75 w-xl font-sans">
-                NEXT QUESTION
+                {language === "English" ? "Next Question" : hindi.nextQustion}
               </button>
               :
               <button
                 onClick={() => (setIsCorrect("CLEAR"))}
                 className="bg-red-500 text-center md:inline text-white p-8 px-12 mt-5 text-4xl rounded-half shadow shadow-gray-500 hover:brightness-75 w-xl font-sans">
-                TRY AGAIN
+                {language === "English" ? "Try Again" : hindi.tryAgain}
               </button>
             }
           </div>
         </div>
       }
-      
+
       <div className="m-5">
         {/* <img
             className="rounded-lg object-cover float-right"
@@ -103,13 +108,13 @@ export default function Options(data: { question: QuestionSchema, username: stri
         <div className="rounded-xl overflow-hidden flex justify-center items-center font-sans ">
           <video autoPlay controls width="100%">
             <source
-              src={`/question_videos/sl${data.params.storyline}/${question.questionNumber}.mp4`}
+              src={`/question_videos/${language}/sl${params.storyline}/${question.questionNumber}.mp4`}
               type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
 
-        <h1 className="text-5xl mt-5 font-sans font-extrabold">Question {question.questionNumber}:</h1>
+        <h1 className="text-5xl mt-5 font-sans font-extrabold">{language === "English" ? "Question" : hindi.quesiton} {question.questionNumber}:</h1>
         <p className="text-xl my-5 font-sans font-bold">{question.questionStatement}</p>
 
         <div className="grid grid-cols-4 my-4 gap-4">
@@ -137,16 +142,20 @@ export default function Options(data: { question: QuestionSchema, username: stri
           >
             {question.option4}
           </button>
-          {data.params.question != "1" &&
+          {params.question != "1" &&
             <button
               className="rounded-xl bg-kid p-3 px-6 mt-4 text-white font-sans shadow font-bold text-xl shadow-gray-500 transition ease-in-out active:brightness-150"
               onClick={() => {
-                router.push(`/quiz/${data.params.storyline}/${Number(data.params.question) + -1}`)
+                router.push(`/quiz/${params.storyline}/${Number(params.question) + -1}`)
               }}>
-              Go back
+              {language === "English" ? "Go back" : hindi.goBack}
             </button>
           }
-          <button className="col-start-4 rounded-xl bg-bluekid p-3 px-6 mt-4 text-white font-bold text-xl shadow shadow-gray-500 transition ease-in-out active:brightness-150" onClick={() => { handleClick() }}>Submit</button>
+          <button
+            className="col-start-4 rounded-xl bg-bluekid p-3 px-6 mt-4 text-white font-bold text-xl shadow shadow-gray-500 transition ease-in-out active:brightness-150"
+            onClick={() => { handleClick() }}>
+            {language === "English" ? "Submit" : hindi.submit}
+          </button>
         </div>
       </div>
     </div>
