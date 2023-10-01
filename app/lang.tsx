@@ -31,9 +31,14 @@ export default function Lang({ userId }: { userId: string }) {
     }
   }, [firstRender, language])
 
-  const handleChange = async (e: any) => {
-    const lang = e.target.innerText
-    setLang(lang)
+  const handleChange = async (e: any, option: number) => {
+    if (option === 1) {
+      const lang = "English"
+      setLang(lang)
+    } else if (option === 2) {
+      const lang = "Hindi"
+      setLang(lang)
+    }
     setIsOpen(!isOpen)
     router.refresh()
   }
@@ -63,12 +68,12 @@ export default function Lang({ userId }: { userId: string }) {
           <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10 text-black">
             <ul className="py-2 divide-y">
               <li
-                onClick={handleChange}
+                onClick={(e) => { handleChange(e, 1) }}
                 className={`${language === "English" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}>
                 English
               </li>
               <li
-                onClick={handleChange}
+                onClick={(e) => { handleChange(e, 2) }}
                 defaultValue="English"
                 className={`${language === "Hindi" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}>
                 हिंदी
