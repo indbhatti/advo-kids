@@ -10,6 +10,7 @@ export default function About() {
         </div>
       </div>
       <div className="basis-1/2">
+
         <h1 className="text-5xl font-serif font-extrabold">
           About our Education
         </h1>
