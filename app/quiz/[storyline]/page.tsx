@@ -11,6 +11,9 @@ export default async function Page({ params }: { params: { storyline: string } }
   const user: UserType = await getUser(data.user.userId);
   const storyline: StorylineSchema = await getStoryline(user.language, params.storyline)
   const questions: Array<QuestionSchema> = await getQuestionSet(user.language, params.storyline)
+  if (!data || !user || !storyline || !questions) {
+    return (<div>ERROR</div>)
+  }
   return (
     <div className="container mx-auto my-14 w-2/3">
 

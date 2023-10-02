@@ -1,15 +1,13 @@
 import Image from 'next/image'
-import Link from 'next/link'
-import { SessionType } from '../utility'
 import { UserType } from '@/models/user'
 
 export default async function Card(
-  { storylineNumber, description, title, questions, data, user }:
-    { storylineNumber: number, description: string, title: string, questions: number, data: SessionType | null, user : UserType }) {
-  if (!data) {
-    return (<div></div>)
-  }
+  { storylineNumber, description, title, questions, user }:
+    { storylineNumber: number, description: string, title: string, questions: number, user: UserType | null }) {
 
+  if (!user) {
+    return (<div>ERROR</div>)
+  }
   return (
     <div className="container mx-auto my-14 w-2/3">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pb-0 rounded-lg border shadow-lg font-sans ">
@@ -47,6 +45,4 @@ export default async function Card(
     </div>
   )
 }
-// <a href={`/play/storyline1/${questionsl1.questionNumber}`} className="bg-primary text-white text-lg px-4 py-2 md:mr-2 font-bold rounded-lg">Storyline 1</a>
-// <button type="button" className="bg-transparent border border-primary text-primary text-lg px-4 py-2 gap-3">{`${user.progress.storyline1}/7`}</button>
 

@@ -9,7 +9,7 @@ import { QuestionSchema } from '@/models/questions'
 export default async function Page({ params }: { params: { question: string, storyline: string } }) {
   const data = await getServerSession(options)
   if (!data || !data.user) {
-    return <div></div>
+    return <div>ERROR</div>
   }
 
   const user: UserType = await getUser(data.user.userId);
