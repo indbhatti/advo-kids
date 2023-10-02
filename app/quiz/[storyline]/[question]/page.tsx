@@ -21,7 +21,7 @@ export default async function Page({ params }: { params: { question: string, sto
     <
     Number(params.question)) {
     return (
-      <div className="bg-gray-300 container rounded-3xl p-3 my-28">
+      <div className="bg-gray-300 container rounded-3xl p-3 my-28 font-sans ">
         <h1 className="text-5xl text-center">
           Question Not Unlocked Yet
         </h1>
@@ -40,9 +40,9 @@ export default async function Page({ params }: { params: { question: string, sto
 
   if (!question) {
     return (
-      <div className="bg-gray-300 container rounded-3xl p-3 my-28">
-        <h1 className="text-5xl text-center">
-          ERROR <br /> Question Not found
+      <div className="bg-kids container rounded-3xl p-12 my-28">
+        <h1 className="text-5xl text-center font-sans font-extrabold text-white">
+          ERROR<br /> QUESTION NOT FOUND!
         </h1>
       </div>
     )
@@ -50,11 +50,15 @@ export default async function Page({ params }: { params: { question: string, sto
 
   if (data && data.user && data.user.email) {
     return (
-      <div>
-        <div className="container mt-14">
-          <Quiz question={question} username={data.user.email} params={params} />
-        </div>
-      </div>)
+      <div className="container my-10">
+        <Quiz
+          question={question}
+          username={data.user.email}
+          params={params}
+          language={user.language}
+        />
+      </div>
+    )
 
   }
 }

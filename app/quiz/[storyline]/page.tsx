@@ -13,39 +13,46 @@ export default async function Page({ params }: { params: { storyline: string } }
   const questions: Array<QuestionSchema> = await getQuestionSet(user.language, params.storyline)
   return (
     <div className="container mx-auto my-14 w-2/3">
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pb-0 rounded-lg border shadow-lg">
         <div className="p-3 md:p-5 md:pt-3">
-          <h1 className="text-4xl font-bold text-body-emphasis">
+          <h1 className="text-4xl font-extrabold text-body-emphasis font-sans ">
             {storyline.title}
           </h1>
-          <h1 className="text-2xl font-bold my-5 text-body-emphasis">
+          <h1 className="text-2xl font-bold my-5 text-body-emphasis font-sans ">
             Storyline {storyline.storyline_number}
           </h1>
-          <p className="text-xl">
+          <p className="text-xl font-sans ">
             {storyline.description}
           </p>
 
           <Link href={`/quiz/${storyline.storyline_number}/${user.progress.current_question[storyline.storyline_number - 1]}`}>
-            <button className="bg-blue-500 text-white p-2 px-5 mt-5 rounded-full shadow shadow-gray-500 hover:brightness-75 w-1/2">
+            <button className="bg-blue-500 text-white p-2 px-5 mt-5 rounded-lg font-sans shadow shadow-gray-500 hover:brightness-75 w-1/2">
               Play
             </button>
           </Link>
-          <div className="bg-green-600 text-white p-2 px-5 my-5 mb-10 rounded-full w-1/2 text-center">
+          <div className="bg-green-600 text-white font-bold p-2 px-5 my-5 mb-10 rounded-lg w-1/2 text-center font-sans ">
             Progress {user.progress.completed_questions[storyline.storyline_number - 1]}/{storyline.questions}
           </div>
           {questions.map((question: QuestionSchema) => (
             <div
               key={question.questionNumber}
-              className={`p-2 px-5 my-5 rounded-full text-white
-                  ${user.progress.completed_questions[0] < question.questionNumber ? ("bg-red-500") : ("bg-green-500")}`}
+              className={`p-2 px-5 my-5 rounded-lg font-sans  text-white
+                  ${user.progress.completed_questions[storyline.storyline_number - 1] < question.questionNumber ? ("bg-red-500") : ("bg-green-500")}`}
             >
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center font-sans ">
                 <div>
                   Question {question.questionNumber}
                 </div>
-                <div className="bg-green-500 p-2 rounded-full">
-                  Go to
-                </div>
+                {user.progress.completed_questions[storyline.storyline_number - 1] + 1 < question.questionNumber ?
+                  <div></div>
+                  :
+                  <Link
+                    href={`/quiz/${storyline.storyline_number}/${question.questionNumber}`}
+                    className="bg-darkkids px-2 rounded-lg font-sans ">
+                    Go to
+                  </Link>
+                }
               </div>
             </div>
           ))}
