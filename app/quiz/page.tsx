@@ -12,9 +12,6 @@ export default async function play() {
   if (data) {
     user = await getUser(data.user.userId)
   }
-  if (!data || !user) {
-    return (<div>ERROR</div>)
-  }
 
   if (user) {
     const storylines: Array<StorylineSchema> = await getStorylines(user.language)
@@ -27,11 +24,13 @@ export default async function play() {
             title={title}
             description={description}
             questions={questions}
-            data={data}
             user={user}
           />
         ))}
       </div>
     )
+  }
+  else {
+    return (<div>ERROR</div>)
   }
 }

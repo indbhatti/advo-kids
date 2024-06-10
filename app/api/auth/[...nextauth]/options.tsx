@@ -5,14 +5,15 @@ import connectMongo from "../../../../middleware/mongooseconnect";
 import UserMongo from "../../../../models/user";
 import { UserType } from "../../../../models/user";
 import { compare } from "bcryptjs";
-import { Account, TokenSet, User } from "next-auth";
+import { Account, Session, TokenSet, User } from "next-auth";
 
-export type SessionType = {
+export interface SessionType extends Session  {
   user: {
     name: string,
     email: string,
     image: string,
     userId: string,
+    language: string
   }
   expires: string,
   accessToken: string,
@@ -62,7 +63,7 @@ export const options = {
             email: user.username,
             image: user.image,
           };
-          console.log(userToSubmit);
+          // console.log(userToSubmit);
 
           return userToSubmit;
         } catch (error) {

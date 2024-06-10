@@ -9,7 +9,7 @@ export default async function Profile() {
   if (data) {
     const user: UserType = await getUser(data.user.userId);
     const storylines: Array<StorylineSchema> = await getStorylines(user.language)
-    console.log(user)
+    // console.log(user)
 
     return (
       <div className="bg-gray-300 container rounded-3xl p-3 my-28">

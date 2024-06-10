@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { UserType } from '@/models/user'
+import Link from 'next/link'
 
 export default async function Card(
   { storylineNumber, description, title, questions, user }:
@@ -21,11 +22,11 @@ export default async function Card(
           <p className="text-xl font-sans">
             {description}
           </p>
-          <a href={`/quiz/${storylineNumber}`}>
+          <Link href={`/quiz/${storylineNumber}`}>
             <button className="bg-blue-500 text-white p-2 px-5 mt-5 rounded-full shadow font-sans  shadow-gray-500 hover:brightness-75 w-1/2">
               Go to
             </button>
-          </a>
+          </Link>
           <div className="bg-green-600 text-white p-2 px-5 my-5 rounded-full w-1/2 text-center font-sans ">
             Progress {user.progress.completed_questions[storylineNumber - 1]}/{questions}
           </div>

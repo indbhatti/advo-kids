@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-export type StorylineSchema = {
+export interface StorylineSchema extends Document {
   storyline_number: number,
   title: string,
   description: string,
@@ -16,7 +16,7 @@ const storylineSchema = new mongoose.Schema({
   language: String
 });
 
-// mongoose.models = {};
+mongoose.models = {};
 const Storyline = mongoose.models.Storyline || mongoose.model('Storyline', storylineSchema);
 // var User = mongoose.model('User', userSchema);
 

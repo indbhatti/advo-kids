@@ -9,6 +9,7 @@ import Lang from './lang'
 
 
 export default async function Navbar() {
+
   const data: SessionType | null = await getServerSession(options)
   let user : UserType | null = null
   if (data && data.user) {
@@ -40,7 +41,7 @@ export default async function Navbar() {
             </li>
           </ul>
           <div className="flex flex-row items-center space-x-4 basis-3/6 justify-end font-sans font-semibold">
-            <Link href="/selection-menu">
+            <Link href="/quiz">
               <button className="bg-white text-black px-4 py-2 hover:bg-red-100 shadow shadow-red-400 active:bg-red-400 font-sans font-extrabold">
                 PLAY NOW
               </button>

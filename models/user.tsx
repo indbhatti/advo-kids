@@ -1,12 +1,25 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-export type UserType = {
+export interface SimpleUser {
+  _id: string,
+  username: string,
+  image: string,
+  coins: number,
+  googleId?: string,
+  nickname: string,
+  language: string,
+  progress: {
+    completed_questions: Array<number>,
+    current_question: Array<number>
+  }
+}
+export interface UserType extends Document {
   _id: string,
   username: string,
   password: string,
   image: string,
   coins: number,
-  googleId: string,
+  googleId?: string,
   nickname: string,
   language: string,
   progress: {
@@ -31,7 +44,7 @@ const userSchema = new mongoose.Schema({
   // facebookId: String,
 });
 
-// mongoose.models = {};
+mongoose.models = {};
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 // var User = mongoose.model('User', userSchema);
 
