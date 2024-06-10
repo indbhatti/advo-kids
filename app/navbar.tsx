@@ -1,19 +1,20 @@
 import Link from 'next/link'
 import SignIn from './signin'
 import Dropdown from './dropdown'
-import { options } from './api/auth/[...nextauth]/options'
+import { SessionType, options } from './api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
-import { SessionType, getUser } from './utility'
-import { UserType } from '@/models/user'
+import { SimpleUser } from '@/models/user'
 import Lang from './lang'
+import { getUserById } from '@/server-actions/serveractions'
 
 
 export default async function Navbar() {
 
   const data: SessionType | null = await getServerSession(options)
-  let user : UserType | null = null
+
+  let user : SimpleUser | null = null
   if (data && data.user) {
-    user = await getUser(data.user.userId);
+    user = await getUserById(data.user.userId);
   }
 
   return (
@@ -50,7 +51,7 @@ export default async function Navbar() {
               <div className="inline px-3 text-white">Rewards</div>
             }
             {data && user &&
-              <Lang userId={data.user.userId} userLanguage={user.language} />
+              <Lang user={user} />
             }
             {data ? (
               <Dropdown data={data} />

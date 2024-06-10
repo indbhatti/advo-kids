@@ -1,4 +1,4 @@
-import QuizF from './quizf'
+import QuizLogic from './quizLogic'
 import { getUserById } from '@/server-actions/serveractions';
 import { SessionType, options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
@@ -14,7 +14,7 @@ export default async function Quiz({ params }: { params: { storyline: string } }
     if (user) {
       return (
         <div className="container my-10">
-          <QuizF
+          <QuizLogic
             storylineNumber={storylineNumber}
             user={user}
           />
@@ -24,7 +24,7 @@ export default async function Quiz({ params }: { params: { storyline: string } }
   } else {
     return (
       <div>
-        ERROR FINDING QUESTION
+        Login In
       </div>
     )
   }

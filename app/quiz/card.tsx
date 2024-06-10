@@ -1,14 +1,12 @@
 import Image from 'next/image'
-import { UserType } from '@/models/user'
+import { SimpleUser, UserType } from '@/models/user'
 import Link from 'next/link'
+import Signin from '../signin'
 
 export default async function Card(
   { storylineNumber, description, title, questions, user }:
-    { storylineNumber: number, description: string, title: string, questions: number, user: UserType | null }) {
+    { storylineNumber: number, description: string, title: string, questions: number, user: SimpleUser | null }) {
 
-  if (!user) {
-    return (<div>ERROR</div>)
-  }
   return (
     <div className="container mx-auto my-14 w-2/3">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pb-0 rounded-lg border shadow-lg font-sans ">
@@ -27,9 +25,13 @@ export default async function Card(
               Go to
             </button>
           </Link>
-          <div className="bg-green-600 text-white p-2 px-5 my-5 rounded-full w-1/2 text-center font-sans ">
-            Progress {user.progress.completed_questions[storylineNumber - 1]}/{questions}
-          </div>
+          {(user) ?
+            <div className="bg-green-600 text-white p-2 px-5 my-5 rounded-full w-1/2 text-center font-sans ">
+              Progress {user.progress.completed_questions[storylineNumber - 1]}/{questions}
+            </div>
+            :
+            <Signin />
+          }
 
           <div className="grid gap-2 md:flex md:justify-start mb-4 md:mb-3">
           </div>

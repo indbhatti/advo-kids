@@ -1,47 +1,20 @@
 'use client'
-import { useEffect, useRef, useState } from "react"
-import { setLanguage } from "./utility"
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react"
+import { SimpleUser } from "@/models/user";
+import { setLanguage } from "@/server-actions/serveractions";
 
-export function useFirstRender() {
-  const firstRender = useRef(true);
+export default function Lang({ user }: { user: SimpleUser }) {
 
-  useEffect(() => {
-    firstRender.current = false;
-  }, []);
-
-  return firstRender.current;
-}
-
-
-export default function Lang({ userId, userLanguage }: { userId: string, userLanguage: string }) {
-
-  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLang] = useState("English");
-  const firstRender = useFirstRender();
+  const [language, setLang] = useState(user.language);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   useEffect(() => {
-    if (!firstRender) {
-      setLanguage(userId, language)
-    }
-  }, [firstRender, language])
-
-  const handleChange = async (e: any, option: number) => {
-    if (option === 1) {
-      const lang = "English"
-      setLang(lang)
-    } else if (option === 2) {
-      const lang = "Hindi"
-      setLang(lang)
-    }
-    setIsOpen(!isOpen)
-    router.refresh()
-  }
+    setLanguage(user._id, language);
+  }, [language])
 
   return (
     <div className="flex justify-center items-center text-white">
@@ -50,7 +23,7 @@ export default function Lang({ userId, userLanguage }: { userId: string, userLan
           onClick={toggleDropdown}
           className="flex items-center space-x-2"
         >
-          <h1 className="font-bold" >{userLanguage === "English" ? "English" : "हिंदी"}</h1>
+          <h1 className="font-bold" >{user.language === "English" ? "English" : "हिंदी"}</h1>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-600"
@@ -68,13 +41,12 @@ export default function Lang({ userId, userLanguage }: { userId: string, userLan
           <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10 text-black">
             <ul className="py-2 divide-y">
               <li
-                onClick={(e) => { handleChange(e, 1) }}
+                onClick={() => setLang("English")}
                 className={`${language === "English" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}>
                 English
               </li>
               <li
-                onClick={(e) => { handleChange(e, 2) }}
-                defaultValue="English"
+                onClick={() => setLang("Hindi")}
                 className={`${language === "Hindi" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}>
                 हिंदी
               </li>

@@ -1,20 +1,23 @@
 import Card from './card'
-import { options } from '../api/auth/[...nextauth]/options'
+import { SessionType, options } from '../api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
-import { getStorylines, getUser } from '../utility'
 import { StorylineSchema } from "../../models/storylines"
-import { SessionType } from '../utility'
-import { UserType } from '@/models/user'
+import { SimpleUser } from '@/models/user'
+import { getStorylines, getUserById } from '@/server-actions/serveractions'
 
 export default async function play() {
   const data: SessionType | null = await getServerSession(options)
-  let user: UserType | null = null
+  let user: SimpleUser | null = null
   if (data) {
-    user = await getUser(data.user.userId)
+    user = await getUserById(data.user.userId)
+  }
+  if (user) {
+    var storylines: Array<StorylineSchema> | null = await getStorylines(user.language)
+  } else {
+    var storylines: Array<StorylineSchema> | null = await getStorylines("English")
   }
 
-  if (user) {
-    const storylines: Array<StorylineSchema> = await getStorylines(user.language)
+  if (storylines) {
     return (
       <div>
         {storylines.map(({ storyline_number, description, title, questions }: { storyline_number: number, description: string, title: string, questions: number }) => (
@@ -29,8 +32,5 @@ export default async function play() {
         ))}
       </div>
     )
-  }
-  else {
-    return (<div>ERROR</div>)
   }
 }

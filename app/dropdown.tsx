@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import SignOut from './signout'
-import { SessionType } from './utility'
+import { SessionType } from './api/auth/[...nextauth]/options';
 
 export default function Dropdown({ data } : { data : SessionType }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +42,7 @@ export default function Dropdown({ data } : { data : SessionType }) {
         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
           <ul className="py-2 divide-y">
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <a href="/selection-menu">Storyline Menu</a>
+              <a href="/quiz">Storyline Menu</a>
             </li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <a href="/profile">Profile</a>

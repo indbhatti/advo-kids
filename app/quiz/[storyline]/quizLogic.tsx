@@ -7,7 +7,7 @@ import { correct, getCurrentQuestionNumber, getQuestion } from '@/server-actions
 import IsCorrect from './isCorrect'
 import Video from './video'
 
-export default function QuizF({ user, storylineNumber }: { user: SimpleUser, storylineNumber: number }) {
+export default function QuizLogic({ user, storylineNumber }: { user: SimpleUser, storylineNumber: number }) {
 
   const [currentQuestion, setCurrentQuestion] = useState<SimpleQuestion>()
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(user.progress.current_question[storylineNumber])
