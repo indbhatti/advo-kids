@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function Hero() {
   return (
-    <div>
+    <>
       <div className="flex flex-col-reverse lg:flex-row container justify-center items-center p-14">
         <div className="basis-1/2">
           <div className="text-white">
@@ -30,6 +30,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

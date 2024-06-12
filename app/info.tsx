@@ -58,7 +58,7 @@ export default function Info() {
           </p>
           <Link href="/contact">
             <button className="bg-red-500 font-sans text-white px-4 py-2 my-2 rounded-lg hover:bg-red-600 transition ease-in-out shadow shadow-gray-500 active:bg-red-900">
-            Contact Us Right Now
+              Contact Us Right Now
             </button>
           </Link>
         </div>

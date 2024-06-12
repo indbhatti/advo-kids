@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { Button } from "@/components/ui/button"
 
 export default function Why() {
   return (
@@ -12,9 +13,9 @@ export default function Why() {
           </p>
           <div className="my-4">
             <Link href="/selection-menu">
-              <button className="bg-white font-sans font-extrabold text-black px-4 py-2 rounded-full translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-yellow-500 active:bg-red-400">
+              <Button>
                 PLAY NOW
-              </button>
+              </Button>
             </Link>
           </div>
         </div>

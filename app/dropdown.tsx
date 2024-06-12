@@ -2,26 +2,22 @@
 import { useState } from 'react';
 import SignOut from './signout'
 import { SessionType } from './api/auth/[...nextauth]/options';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-export default function Dropdown({ data } : { data : SessionType }) {
+export default function Dropdown({ data }: { data: SessionType }) {
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // {JSON.stringify(data)}
   return (
     <div className="relative">
       <button
-        onClick={toggleDropdown}
+        onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2"
       >
-        <img
-          src={`${JSON.stringify(data.user.image).slice(1, -1)}`}
-          alt="Profile"
-          className="w-10 h-10 rounded-full"
-        />
+        <Avatar>
+          <AvatarImage src={`${JSON.stringify(data.user.image).slice(1, -1)}`} />
+          <AvatarFallback>PP</AvatarFallback>
+        </Avatar>
         <span className="text-gray-800">
           {JSON.stringify(data.user.name).slice(1, -1)}
         </span>
