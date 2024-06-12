@@ -1,7 +1,7 @@
 "use server"
 import connectMongoDB from "@/middleware/mongooseconnect";
 import Question, { QuestionSchema, SimpleQuestion } from "@/models/questions";
-import Storyline, { StorylineSchema } from "@/models/storylines";
+import Storyline, { SimpleStoryline, StorylineSchema } from "@/models/storylines";
 import User, { SimpleUser, UserType } from "@/models/user";
 import { hash } from "bcryptjs";
 import mongoose from "mongoose";
@@ -42,7 +42,7 @@ export const getQuestion = async (language: string, storylineNumber: number, que
   }
 }
 
-export const getCurrentQuestionNumber = async (userId: string, storylineNumber: number) => {
+export const getCurrentQuestionNumber = async (userId: string, storylineNumber: number): Promise<number | null> => {
   try {
     const connect = await connectMongoDB();
     let validId = mongoose.isValidObjectId(userId);
@@ -72,7 +72,7 @@ export const getCurrentQuestionNumber = async (userId: string, storylineNumber: 
 }
 
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (userId: string): Promise<SimpleUser | null> => {
   try {
     const connect = await connectMongoDB();
     let validId = mongoose.isValidObjectId(userId);
@@ -85,14 +85,22 @@ export const getUserById = async (userId: string) => {
       }
       if (user) {
         let userToSend: SimpleUser = {
-          _id: user._id,
+          _id: user._id.toString(),
           username: user.username,
           image: user.image,
           coins: user.coins,
           googleId: user.googleId,
           nickname: user.nickname,
           language: user.language,
-          progress: user.progress
+          progress: {
+            completed_questions: user.progress.completed_questions.map((cq) => {
+            return cq;
+            }),
+            current_question: user.progress.current_question.map((cq) => {
+            return cq;
+
+            })
+          }
         }
         return userToSend;
       } else {
@@ -111,14 +119,15 @@ export const getUserById = async (userId: string) => {
   }
 }
 
-export const correct = async (userId: string, storylineNumber: number, questionNumber: number) => {
+export const correct = async (userId: string, storylineNumber: number, questionNumber: number)
+  : Promise<{ error?: string, message?: string, status: number } | undefined> => {
   try {
     const connect = await connectMongoDB();
     if (connect) {
       var user: UserType | null = await User.findById(userId)
       const storyline: StorylineSchema | null = await Storyline.findOne({ storyline_number: storylineNumber })
       if (user && storyline) {
-        console.log(user);
+        // console.log(user);
         if (questionNumber === storyline.questions) {
           user.progress.completed_questions[storylineNumber - 1] = questionNumber;
           user.progress.current_question[storylineNumber - 1] = storyline.questions + 1;
@@ -144,12 +153,23 @@ export const correct = async (userId: string, storylineNumber: number, questionN
 }
 
 
-export const getStorylines = async (language: string) => {
+export const getStorylines = async (language: string): Promise<Array<SimpleStoryline> | null> => {
   try {
     const connect = await connectMongoDB();
     var storylines: Array<StorylineSchema> = await Storyline.find({ language: language })
     if (storylines) {
-      return storylines
+      const simpleStorylines: Array<SimpleStoryline> = storylines.map((st) => {
+        const newSt: SimpleStoryline = {
+          _id: st._id,
+          storyline_number: st.storyline_number,
+          title: st.title,
+          description: st.description,
+          questions: st.questions,
+          language: st.language
+        }
+        return newSt;
+      })
+      return simpleStorylines
     } else {
       console.error("Stoyrline not found")
       return null;
@@ -159,7 +179,7 @@ export const getStorylines = async (language: string) => {
     return null;
   }
 }
-export const setLanguage = async (userId: string, language: string) => {
+export const setLanguage = async (userId: string, language: string): Promise<string | null> => {
   try {
     const connect = await connectMongoDB();
     let validId = mongoose.isValidObjectId(userId);
@@ -172,7 +192,7 @@ export const setLanguage = async (userId: string, language: string) => {
     if (user) {
       user.language = language;
       user.save();
-      console.log("success")
+      // console.log("success")
       revalidatePath("/")
       return "Sucess";
     } else {
@@ -183,7 +203,8 @@ export const setLanguage = async (userId: string, language: string) => {
   }
 }
 
-export const register = async (username: string, password: string, nickname: string) => {
+export const register = async (username: string, password: string, nickname: string)
+  : Promise<{ status: number, error?: string, message?: string } | undefined> => {
   try {
     const connect = await connectMongoDB();
 
@@ -192,7 +213,7 @@ export const register = async (username: string, password: string, nickname: str
 
     if (existingUser) {
       console.log(existingUser);
-      return { status: 409, body: "Username already exists" }; // Conflict
+      return { status: 409, "message": "Username already exists" }; // Conflict
     }
 
     const newUser = new User({
@@ -211,7 +232,7 @@ export const register = async (username: string, password: string, nickname: str
     // Create new user
     const userCreated = await newUser.save();
 
-    return { status: 200, userCreated };
+    return { status: 200, "message": "userCreated" };
   } catch (error) {
     console.error(error);
     return { error: "An error occurred", status: 500 };

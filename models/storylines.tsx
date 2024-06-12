@@ -1,5 +1,14 @@
 import mongoose, { Document } from 'mongoose';
 
+export interface SimpleStoryline {
+  _id: string,
+  storyline_number: number,
+  title: string,
+  description: string,
+  questions: number
+  language: string
+}
+
 export interface StorylineSchema extends Document {
   storyline_number: number,
   title: string,
