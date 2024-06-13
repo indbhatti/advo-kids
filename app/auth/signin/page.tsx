@@ -9,7 +9,7 @@ export default function Signin() {
       redirect: true,
       email: username,
       password: password,
-      callbackUrl: '/selection_menu'
+      callbackUrl: '/quiz'
     });
     console.log(status);
   };

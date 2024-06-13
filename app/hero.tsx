@@ -16,7 +16,7 @@ export default function Hero() {
               <strong>Empowering the Young, Upholding the Future:<br /> Your Rights, Our Mission. Let's Play</strong>
             </p>
             <div className="my-4">
-              <Link href="/selection-menu">
+              <Link href="/quiz">
                 <button className="bg-white text-black px-10 py-5 rounded-corner translate-y-1 hover:translate-y-0 transition ease-in-out shadow shadow-orange-500 active:bg-green-400 font-sans font-extrabold">
                   LET'S PLAY
                 </button>
