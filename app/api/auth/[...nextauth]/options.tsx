@@ -137,7 +137,7 @@ export const options = {
     },
     async redirect() {
       const apiUrl = process.env.NEXTAUTH_URL as string;
-      return `${apiUrl}`;
+      return `${apiUrl}/`;
     },
 
     async signIn({
