@@ -35,7 +35,7 @@ const questionSchema = new mongoose.Schema({
   answer: Number,
 });
 
-mongoose.models = {};
+// mongoose.models = {};
 const Question = mongoose.models.Question || mongoose.model('Question', questionSchema);
 // var User = mongoose.model('User', userSchema);
 

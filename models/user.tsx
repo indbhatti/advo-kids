@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
   // facebookId: String,
 });
 
-mongoose.models = {};
+// mongoose.models = {};
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 // var User = mongoose.model('User', userSchema);
 

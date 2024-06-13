@@ -1,7 +1,7 @@
 import Card from './card'
 import { SessionType, options } from '../api/auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
-import { StorylineSchema } from "../../models/storylines"
+import { SimpleStoryline } from "../../models/storylines"
 import { SimpleUser } from '@/models/user'
 import { getStorylines, getUserById } from '@/server-actions/serveractions'
 
@@ -12,9 +12,9 @@ export default async function play() {
     user = await getUserById(data.user.userId)
   }
   if (user) {
-    var storylines: Array<StorylineSchema> | null = await getStorylines(user.language)
+    var storylines: Array<SimpleStoryline> | null = await getStorylines(user.language)
   } else {
-    var storylines: Array<StorylineSchema> | null = await getStorylines("English")
+    var storylines: Array<SimpleStoryline> | null = await getStorylines("English")
   }
 
   if (storylines) {

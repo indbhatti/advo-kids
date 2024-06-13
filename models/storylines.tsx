@@ -25,7 +25,7 @@ const storylineSchema = new mongoose.Schema({
   language: String
 });
 
-mongoose.models = {};
+// mongoose.models = {};
 const Storyline = mongoose.models.Storyline || mongoose.model('Storyline', storylineSchema);
 // var User = mongoose.model('User', userSchema);
 

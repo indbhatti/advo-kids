@@ -1,13 +1,17 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { GoogleProfile } from "next-auth/providers/google";
 import connectMongo from "../../../../middleware/mongooseconnect";
 import UserMongo from "../../../../models/user";
 import { UserType } from "../../../../models/user";
 import { compare } from "bcryptjs";
-import { Account, Session, TokenSet, User } from "next-auth";
+import { Account, Profile, Session, TokenSet, User } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
 
-export interface SessionType extends Session  {
+interface ProfileSafe extends Profile {
+  picture: string;
+}
+
+export interface SessionType extends Session {
   user: {
     name: string,
     email: string,
@@ -82,9 +86,9 @@ export const options = {
       profile,
     }: {
       token: TokenSet;
-      account: Account;
-      user: User;
-      profile: GoogleProfile;
+      account: Account | null;
+      user: User | AdapterUser;
+      profile?: Profile | undefined;
     }) {
       // Persist the OAuth access_token and or the user id to the token right after signin
       if (account) {
@@ -114,7 +118,7 @@ export const options = {
         } catch (error) {
           console.log(error);
         }
-        token.accessToken = account.access_token;
+        // token.accessToken = profile.access_token;
         token.email = profile.email;
       }
       // console.log(account)
@@ -123,7 +127,7 @@ export const options = {
       // console.log(token)
       return token;
     },
-    async session({ session, token }: { session: any , token: TokenSet }) {
+    async session({ session, token }: { session: any, token: TokenSet }) {
       // this token return above jwt()
       session.accessToken = token.accessToken;
       session.user.userId = token.userId;
@@ -132,24 +136,27 @@ export const options = {
       return session;
     },
     async redirect() {
-      return "http://localhost:3000/";
+      const apiUrl = process.env.NEXTAUTH_URL as string;
+      return `${apiUrl}`;
     },
 
     async signIn({
       account,
       profile,
     }: {
-      account: Account;
-      profile: GoogleProfile;
+      account: Account | null;
+      profile?: Profile | undefined;
     }) {
+      if (!account) {
+        return false;
+      }
       if (account.provider === "google") {
-        // console.log(account)
+        if (!profile) {
+          return false;
+        }
         try {
-          // console.log("connecting to mongo database")
           const connect = await connectMongo();
-
           if (connect) {
-            // console.log("connected to mongo database")
             const user: UserType | null = await UserMongo.findOne({
               googleId: account.providerAccountId,
             });
@@ -159,7 +166,7 @@ export const options = {
                 username: profile.email,
                 nickname: profile.name,
                 googleId: account.providerAccountId,
-                image: profile.picture,
+                // image: profile.picture,
                 coins: 0,
                 language: "English",
                 progress: {
@@ -167,20 +174,19 @@ export const options = {
                   current_question: [1, 1, 1],
                 },
               });
-
-              newUser.save();
-            } else {
-              // console.log(user)
+              await newUser.save();
             }
             return true;
           }
-          return true;
+          return false;
         } catch (error) {
           console.log(error);
+          return false;
         }
-      } else if (account.provider === "credentials") {
+      } else if (account?.provider === "credentials") {
         return true;
       }
+      return false;
     },
   },
 
