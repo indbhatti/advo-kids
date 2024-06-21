@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Info() {
@@ -61,17 +62,22 @@ export default function Info() {
         <hr className="my-6 text-red-500" />
         <div className="flex flex-row justify-center">
           <Link href="" className="mx-2">
-            <img src="/fb.png" alt="" />
+            <Image src="/fb.png" alt="facebook" height="30" width="30" />
           </Link>
 
           <Link href="" className="mx-2">
-            <img src="/twitter.png" alt="" />
+            <Image src="/twitter.png" alt="twitter" height="30" width="30" />
           </Link>
           <Link href="" className="mx-2">
-            <img src="/linkedin.png" alt="" />
+            <Image src="/linkedin.png" alt="linkedin" height="30" width="30" />
           </Link>
           <Link href="" className="mx-2">
-            <img src="/instagram.png" alt="" />
+            <Image
+              src="/instagram.png"
+              alt="instagram"
+              height="30"
+              width="30"
+            />
           </Link>
         </div>
       </div>
