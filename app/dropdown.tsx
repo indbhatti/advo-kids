@@ -1,11 +1,10 @@
-'use client'
-import { useState } from 'react';
-import SignOut from './signout'
-import { SessionType } from './api/auth/[...nextauth]/options';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+"use client";
+import { useState } from "react";
+import SignOut from "./signout";
+import { SessionType } from "./api/auth/[...nextauth]/options";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Dropdown({ data }: { data: SessionType }) {
-
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -15,7 +14,9 @@ export default function Dropdown({ data }: { data: SessionType }) {
         className="flex items-center space-x-2"
       >
         <Avatar>
-          <AvatarImage src={`${JSON.stringify(data.user.image).slice(1, -1)}`} />
+          <AvatarImage
+            src={`${JSON.stringify(data.user.image).slice(1, -1)}`}
+          />
           <AvatarFallback>PP</AvatarFallback>
         </Avatar>
         <span className="text-gray-800">
@@ -40,12 +41,12 @@ export default function Dropdown({ data }: { data: SessionType }) {
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <a href="/quiz">Storyline Menu</a>
             </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+            {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <a href="/profile">Profile</a>
             </li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <a href="/profile/settings/">Settings</a>
-            </li>
+            </li> */}
             <SignOut />
           </ul>
         </div>
