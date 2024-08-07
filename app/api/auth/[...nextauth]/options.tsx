@@ -7,22 +7,28 @@ import { compare } from "bcryptjs";
 import { Account, Profile, Session, TokenSet, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 
-interface ProfileSafe extends Profile {
-  picture: string;
-}
-
-export interface SessionType extends Session {
-  user: {
-    name: string,
-    email: string,
-    image: string,
-    userId: string,
-    language: string
+declare module "next-auth" {
+  interface Session {
+    user: {
+      name: string;
+      email: string;
+      image: string;
+      userId: string;
+      language: string;
+    };
+    expires: string;
+    accessToken: string;
   }
-  expires: string,
-  accessToken: string,
 }
 
+declare module "next-auth" {
+  interface User {
+    id: string;
+    nickname: string;
+    username: string;
+    image: string;
+  }
+}
 
 export const options = {
   providers: [
@@ -36,9 +42,7 @@ export const options = {
         email: { label: "Email", type: "text", placeholder: "Email" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (
-        credentials: Record<string, string> | undefined
-      ) => {
+      authorize: async (credentials: Record<string, string> | undefined) => {
         try {
           if (!credentials) {
             return null;
@@ -46,7 +50,7 @@ export const options = {
           const db = await connectMongo(); // Make sure connectMongo returns a database connection
           const user: UserType | null = await UserMongo.findOne({
             username: credentials.email,
-          }); // Use findOne instead of find
+          });
 
           if (!user) {
             return null;
@@ -54,7 +58,7 @@ export const options = {
 
           const checkPassword = await compare(
             credentials.password,
-            user.password
+            user.password,
           );
 
           if (!checkPassword) {
@@ -63,8 +67,8 @@ export const options = {
 
           const userToSubmit: User = {
             id: user._id,
-            name: user.nickname,
-            email: user.username,
+            username: user.username,
+            nickname: user.nickname,
             image: user.image,
           };
           // console.log(userToSubmit);
@@ -90,49 +94,38 @@ export const options = {
       user: User | AdapterUser;
       profile?: Profile | undefined;
     }) {
-      // Persist the OAuth access_token and or the user id to the token right after signin
       if (account) {
-        // console.log(account)
-        // console.log(user)
         token.accessToken = account.access_token;
-        token.name = user.name;
-        token.email = user.email;
-        token.picture = user.image;
+        token.username = user.username;
+        token.nickname = user.nickname;
+        token.image = user.image;
         token.userId = user.id;
       }
       if (profile) {
-        // console.log(account)
-        // console.log(profile)
         try {
           const db = await connectMongo(); // Make sure connectMongo returns a database connection
           const user: UserType | null = await UserMongo.findOne({
             username: profile.email,
-          }); // Use findOne instead of find
+          });
           if (user) {
             token.userId = user._id;
-            token.name = user.nickname;
-            token.picture = user.image;
+            token.username = user.username;
+            token.nickname = user.nickname;
+            token.image = user.image;
           } else {
-            console.log("User not found")
+            console.log("User not found");
           }
         } catch (error) {
           console.log(error);
         }
-        // token.accessToken = profile.access_token;
         token.email = profile.email;
       }
-      // console.log(account)
-      // console.log(profile)
-      // console.log(user)
-      // console.log(token)
       return token;
     },
-    async session({ session, token }: { session: any, token: TokenSet }) {
-      // this token return above jwt()
+    async session({ session, token }: { session: any; token: TokenSet }) {
       session.accessToken = token.accessToken;
       session.user.userId = token.userId;
-      //if you want to add user details info
-      // console.log(session);
+      session.user.image = token.image;
       return session;
     },
     async redirect() {

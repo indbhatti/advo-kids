@@ -1,10 +1,18 @@
 "use client";
 import { useState } from "react";
 import SignOut from "./signout";
-import { SessionType } from "./api/auth/[...nextauth]/options";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Session } from "next-auth";
+import Lang from "./lang";
+import { SimpleUser } from "@/models/user";
 
-export default function Dropdown({ data }: { data: SessionType }) {
+export default function Dropdown({
+  data,
+  user,
+}: {
+  data: Session;
+  user: SimpleUser;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -40,6 +48,9 @@ export default function Dropdown({ data }: { data: SessionType }) {
           <ul className="py-2 divide-y">
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <a href="/quiz">Storyline Menu</a>
+            </li>
+            <li>
+              <Lang user={user} />
             </li>
             {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <a href="/profile">Profile</a>

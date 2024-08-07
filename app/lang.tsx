@@ -1,10 +1,9 @@
-'use client'
-import { useEffect, useState } from "react"
+"use client";
+import { useEffect, useState } from "react";
 import { SimpleUser } from "@/models/user";
 import { setLanguage } from "@/server-actions/serveractions";
 
 export default function Lang({ user }: { user: SimpleUser }) {
-
   const [isOpen, setIsOpen] = useState(false);
   const [language, setLang] = useState(user.language);
 
@@ -14,16 +13,16 @@ export default function Lang({ user }: { user: SimpleUser }) {
 
   useEffect(() => {
     setLanguage(user._id, language);
-  }, [language])
+  }, [language]);
 
   return (
-    <div className="flex justify-center items-center text-white">
+    <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
       <div className="relative">
         <button
           onClick={toggleDropdown}
           className="flex items-center space-x-2"
         >
-          <h1 className="font-bold" >{user.language === "English" ? "English" : "हिंदी"}</h1>
+          <h1>Set Language</h1>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-600"
@@ -38,23 +37,24 @@ export default function Lang({ user }: { user: SimpleUser }) {
           </svg>
         </button>
         {isOpen && (
-          <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10 text-black">
-            <ul className="py-2 divide-y">
+          <div className="bg-white border border-gray-300 rounded-lg shadow-lg z-10 text-black">
+            <ul>
               <li
                 onClick={() => setLang("English")}
-                className={`${language === "English" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}>
+                className={`${language === "English" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}
+              >
                 English
               </li>
               <li
                 onClick={() => setLang("Hindi")}
-                className={`${language === "Hindi" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}>
+                className={`${language === "Hindi" && "bg-kids"} px-4 py-2 hover:bg-gray-100 cursor-pointer font-bold`}
+              >
                 हिंदी
               </li>
             </ul>
           </div>
         )}
       </div>
-    </div >
-
-  )
+    </div>
+  );
 }

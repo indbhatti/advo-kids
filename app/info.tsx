@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Indie_Flower } from "next/font/google";
+const indie = Indie_Flower({ subsets: ["latin"], weight: ["400"] });
 
 export default function Info() {
   return (
@@ -8,7 +10,7 @@ export default function Info() {
         <h1 className="text-5xl inline decoration-kids">
           <strong>
             <span className="text-red-600 font-sans">ADVO</span>
-            <span className="font-sans">-KIDS</span>
+            <span className={indie.className}>-KIDS</span>
           </strong>
         </h1>
         <p className="absolute inline ml-2">
@@ -19,7 +21,7 @@ export default function Info() {
       <div className="container sm:grid sm:grid-cols-3">
         <div className="p-3 text-center">
           <h1 className="text-2xl font-serif">About Us</h1>
-          <p className="font-sans">
+          <p className="font-sans text-justify">
             We are a dedicated team passionate about advocating for
             children&apos;s rights and raising awareness about their needs. Our
             mission is to create a safe, informed, and empowered environment for
