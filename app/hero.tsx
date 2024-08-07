@@ -6,7 +6,7 @@ const indie = Indie_Flower({ subsets: ["latin"], weight: ["400"] });
 export default function Hero() {
   return (
     <div className="bg-kids">
-      <div className="flex flex-col-reverse lg:flex-row container justify-center items-center p-14">
+      <div className="flex flex-col-reverse lg:flex-row container justify-center items-center p-14 lg:py-40">
         <div className="basis-1/2">
           <div className="text-white">
             <h1 className="text-4xl sm:text-6xl font-sans">
@@ -46,7 +46,7 @@ export default function Hero() {
         <div className="basis-1/2">
           <div>
             <Image
-              src="/advo1.png"
+              src="/hero.png"
               width="800"
               height="800"
               alt=""
