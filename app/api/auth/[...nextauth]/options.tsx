@@ -173,8 +173,10 @@ export const options = {
               await newUser.save();
             }
             return true;
+          } else {
+            console.error("Error coneecting to MongoDB");
+            return false;
           }
-          return false;
         } catch (error) {
           console.log(error);
           return false;
