@@ -19,6 +19,9 @@ declare module "next-auth" {
     expires: string;
     accessToken: string;
   }
+  interface Profile {
+    picture: string;
+  }
 }
 
 declare module "next-auth" {
@@ -159,7 +162,7 @@ export const options = {
                 username: profile.email,
                 nickname: profile.name,
                 googleId: account.providerAccountId,
-                // image: profile.picture,
+                image: profile.picture,
                 coins: 0,
                 language: "English",
                 progress: {

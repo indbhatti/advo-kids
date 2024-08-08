@@ -14,6 +14,7 @@ export default function Dropdown({
   user: SimpleUser;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(data);
 
   return (
     <div className="relative">
@@ -21,15 +22,15 @@ export default function Dropdown({
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2"
       >
-        <Avatar>
-          <AvatarImage
-            src={`${JSON.stringify(data.user.image).slice(1, -1)}`}
-          />
-          <AvatarFallback>PP</AvatarFallback>
-        </Avatar>
-        <span className="text-gray-800">
-          {JSON.stringify(data.user.name).slice(1, -1)}
-        </span>
+        {data.user.image && (
+          <Avatar>
+            <AvatarImage src={`${data.user.image}`} />
+            <AvatarFallback>PP</AvatarFallback>
+          </Avatar>
+        )}
+        {data.user.name && (
+          <span className="text-gray-800">{data.user.name}</span>
+        )}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 text-gray-600"
