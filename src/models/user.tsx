@@ -12,7 +12,7 @@ export interface UserType extends Document {
   email: string;
   password: string;
   image: string;
-  progress: Map<string, number>;
+  progress: Record<string, number>;
 }
 
 const userSchema = new mongoose.Schema<UserType>({
@@ -21,8 +21,8 @@ const userSchema = new mongoose.Schema<UserType>({
   password: String,
   image: String,
   progress: {
-    type: Map,
-    of: Number,
+    type: Object,
+    default: {},
   },
 });
 

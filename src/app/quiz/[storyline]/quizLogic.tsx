@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { SimpleQuestion } from "@/models/questions";
 import hindi from "@/hindi";
 import { SimpleUser } from "@/models/user";
@@ -7,6 +8,7 @@ import IsCorrect from "./isCorrect";
 import Video from "./video";
 import { correct, getQuestion } from "@/serverActions/question";
 import Loading from "@/components/loading";
+import { K } from "@/util/constants";
 
 export default function QuizLogic({
   user,
@@ -15,6 +17,7 @@ export default function QuizLogic({
   user: SimpleUser;
   storylineId: string;
 }) {
+  const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState<SimpleQuestion>();
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(
     user.progress[storylineId] || 0
@@ -30,6 +33,9 @@ export default function QuizLogic({
       );
       if (question) {
         setCurrentQuestion(question);
+      } else {
+        // Redirect if the question number is higher than the total number of questions
+        router.push(K.Links.Quiz);
       }
     };
     setQ();
@@ -47,9 +53,11 @@ export default function QuizLogic({
             storylineId,
             currentQuestion.questionNumber
           );
-          console.log(response);
           if (response?.status === 200) {
             setIsCorrect("YES");
+          }
+          if (response?.status === 409) {
+            setIsCorrect("FINISH");
           }
         } catch (error) {
           console.error(error);
@@ -91,40 +99,45 @@ export default function QuizLogic({
 
           <div className="flex flex-col md:grid md:grid-cols-4 my-4 gap-4">
             <button
-              className={`text-white md:col-span-2 rounded-xl p-3 shadow shadow-gray-500 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${
-                selectedOption === 1 ? "bg-green-500" : "bg-darkkids"
-              }`}
+              className={`text-white md:col-span-2 rounded-xl p-3 shadow shadow-gray-500 
+                 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${
+                   selectedOption === 1 ? "bg-green-500" : "bg-yellow-500"
+                 }`}
               onClick={() => handleOptionClick(1)}
             >
               <span className="text-black">A.</span> {currentQuestion.option1}
             </button>
             <button
-              className={`md:col-span-2 text-white rounded-xl p-3 shadow shadow-gray-500 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${
-                selectedOption === 2 ? "bg-green-500" : "bg-darkkids"
-              }`}
+              className={`md:col-span-2 text-white rounded-xl p-3 shadow shadow-gray-500
+                 transition text-xl font-bold font-sans ease-in-out hover:opacity-90 active:brightness-150 ${
+                   selectedOption === 2 ? "bg-green-500" : "bg-yellow-500"
+                 }`}
               onClick={() => handleOptionClick(2)}
             >
               <span className="text-black">B.</span> {currentQuestion.option2}
             </button>
             <button
-              className={`md:col-span-2 rounded-xl text-white p-3 shadow shadow-gray-500 text-xl font-bold transition font-sans ease-in-out hover:opacity-90 active:brightness-150 ${
-                selectedOption === 3 ? "bg-green-500" : "bg-darkkids"
-              }`}
+              className={`md:col-span-2 rounded-xl text-white p-3 shadow shadow-gray-500
+                 text-xl font-bold transition font-sans ease-in-out hover:opacity-90 active:brightness-150 ${
+                   selectedOption === 3 ? "bg-green-500" : "bg-yellow-500"
+                 }`}
               onClick={() => handleOptionClick(3)}
             >
               <span className="text-black">C.</span> {currentQuestion.option3}
             </button>
             <button
-              className={`md:col-span-2 rounded-xl p-3 shadow text-white shadow-gray-500 text-xl font-bold font-sans transition ease-in-out hover:opacity-90 active:brightness-150 ${
-                selectedOption === 4 ? "bg-green-500" : "bg-darkkids"
-              }`}
+              className={`md:col-span-2 rounded-xl p-3 shadow text-white shadow-gray-500 
+                text-xl font-bold font-sans transition ease-in-out hover:opacity-90 active:brightness-150 ${
+                  selectedOption === 4 ? "bg-green-500" : "bg-yellow-500"
+                }`}
               onClick={() => handleOptionClick(4)}
             >
               <span className="text-black">D.</span> {currentQuestion.option4}
             </button>
             {currentQuestion.questionNumber == 0 && (
               <button
-                className="rounded-xl bg-kid p-3 px-6 mt-4 text-white font-sans shadow font-bold text-xl shadow-gray-500 transition ease-in-out active:brightness-150"
+                className="rounded-xl p-3 px-6 mt-4 text-white font-sans shadow font-bold 
+                text-xl shadow-gray-500 transition ease-in-out active:brightness-150"
                 onClick={() => {
                   setCurrentQuestionNumber(currentQuestionNumber - 1);
                 }}
@@ -133,7 +146,7 @@ export default function QuizLogic({
               </button>
             )}
             <button
-              className="col-start-4 rounded-xl bg-bluekid p-3 px-6 mt-4 text-white font-bold text-xl shadow shadow-gray-500 transition ease-in-out active:brightness-150"
+              className="col-start-4 rounded-xl bg-blue-600 p-3 px-6 mt-4 text-white font-bold text-xl shadow shadow-gray-500 transition ease-in-out active:brightness-150"
               onClick={() => {
                 handleClick();
               }}

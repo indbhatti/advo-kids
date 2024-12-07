@@ -1,4 +1,5 @@
 "use client";
+import { K } from "@/util/constants";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -34,14 +35,14 @@ export default function Dropdown({ session }: { session: Session }) {
         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
           <ul className="py-2 divide-y">
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <Link href="/quiz">Storyline Menu</Link>
+              <Link href={K.Links.Quiz}>Storyline Menu</Link>
             </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+            {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <Link href="/profile">Profile</Link>
             </li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <Link href="/profile/settings/">Settings</Link>
-            </li>
+            </li> */}
             <li
               className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => {

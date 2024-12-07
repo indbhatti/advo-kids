@@ -9,7 +9,7 @@ import UserMongo, { UserType } from "@/models/user";
 import connectMongoDB from "./mongoose";
 declare module "next-auth" {
   interface User {
-    progress?: Map<string, number>;
+    progress?: Record<string, number>;
   }
 }
 

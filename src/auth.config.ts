@@ -27,7 +27,7 @@ export const authConfig = {
     },
     async signIn({ user, account }) {
       if (account?.provider === "google") {
-        user.progress = new Map();
+        user.progress = {};
       }
       return true;
     },

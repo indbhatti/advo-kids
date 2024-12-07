@@ -14,7 +14,7 @@ export async function getUserById(id: string) {
       name: user.name,
       email: user.email,
       image: user.image,
-      progress: Object.fromEntries(user.progress),
+      progress: user.progress,
     };
 
     return simpleUser;

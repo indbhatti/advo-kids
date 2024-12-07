@@ -59,26 +59,30 @@ export const correct = async (
 > => {
   try {
     const connect = await connectMongoDB();
-    if (connect) {
-      const user: UserType | null = await User.findById(userId);
-      const storyline: StorylineSchema | null = await Storyline.findById(
-        storylineId
-      );
-      if (user && storyline) {
-        if (questionNumber === storyline.questions) {
-          user.progress.set(storylineId, questionNumber);
-          user.save();
-          return { error: "No more Questions", status: 409 };
-        } else if (questionNumber > storyline.questions) {
-          user.progress.set(storylineId, questionNumber + 1);
-          user.save();
-          return { message: "Success", status: 200 };
-        } else {
-          return { message: "Question already attempted", status: 200 };
-        }
-      } else {
-        return { error: "Question not found", status: 500 };
-      }
+    if (!connect) return { error: "Failed to connect to MongoDB", status: 500 };
+    const user: UserType | null = await User.findById(userId);
+    const storyline: StorylineSchema | null = await Storyline.findById(
+      storylineId
+    );
+    if (!user) {
+      return { error: "User not found", status: 500 };
+    }
+
+    if (!storyline) {
+      return { error: "Storyline not found", status: 500 };
+    }
+
+    if (questionNumber === storyline.questions) {
+      return { error: "No more Questions", status: 409 };
+    }
+
+    if (questionNumber < storyline.questions) {
+      user.progress[storylineId] = questionNumber;
+      user.markModified("progress");
+      await user.save();
+      return { message: "Success", status: 200 };
+    } else {
+      return { message: "Question already attempted", status: 409 };
     }
   } catch (error) {
     console.error("An error occurred:", error);
