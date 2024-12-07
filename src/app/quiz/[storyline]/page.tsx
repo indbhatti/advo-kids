@@ -11,6 +11,9 @@ async function Quiz({ params }: { params: Promise<{ storyline: string }> }) {
   const storylineId = (await params).storyline;
 
   const session = await auth();
+  if (!session) {
+    redirect(K.Links.SignIn);
+  }
 
   if (session?.user?.id) {
     const user: SimpleUser | null = await getUserById(session.user.id);
