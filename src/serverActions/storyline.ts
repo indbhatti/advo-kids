@@ -15,23 +15,24 @@ export const getStorylines = async (
       console.error("Failed to connect to MongoDB");
       return null;
     }
+
     const storylines: Array<StorylineSchema> = await Storyline.find({
       language: language,
     });
-    if (storylines) {
-      const simpleStorylines: Array<SimpleStoryline> = storylines.map((st) => ({
-        _id: st._id as string,
-        storyline_number: st.storyline_number,
-        title: st.title,
-        description: st.description,
-        questions: st.questions,
-        language: st.language,
-      }));
-      return simpleStorylines;
-    } else {
-      console.error("Stoyrline not found");
+
+    if (!storylines) {
+      console.error("Storyline not found");
       return null;
     }
+
+    const simpleStorylines: Array<SimpleStoryline> = storylines.map((st) => ({
+      _id: st._id as string,
+      title: st.title,
+      description: st.description,
+      questions: st.questions,
+      language: st.language,
+    }));
+    return simpleStorylines;
   } catch (error) {
     console.error(error);
     return null;

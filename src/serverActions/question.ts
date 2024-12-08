@@ -12,38 +12,35 @@ export const getQuestion = async (
 ): Promise<SimpleQuestion | null> => {
   try {
     const connect = await connectMongoDB();
-    if (connect) {
-      const stl: StorylineSchema | null = await Storyline.findById(storylineId);
-      if (!stl) {
-        console.log("Storyline Not Found");
-        return null;
-      }
-      const ques: QuestionSchema | null = await Question.findOne({
-        language,
-        storylineNumber: stl.storyline_number,
-        questionNumber: questionNumber + 1,
-      });
-      if (ques) {
-        const question: SimpleQuestion = {
-          id: ques.id.toString(),
-          questionStatement: ques.questionStatement,
-          questionNumber: ques.questionNumber,
-          storylineNumber: ques.storylineNumber,
-          language: ques.language,
-          option1: ques.option1,
-          option2: ques.option2,
-          option3: ques.option3,
-          option4: ques.option4,
-          answer: ques.answer,
-        };
-        return question;
-      } else {
-        console.log("Question Not Found");
-        return null;
-      }
-    } else {
+    if (!connect) {
+      console.log("Failed to connect to MongoDB");
       return null;
     }
+
+    const ques: QuestionSchema | null = await Question.findOne({
+      language,
+      storylineId,
+      questionNumber: questionNumber + 1,
+    });
+
+    if (!ques) {
+      console.log("Question not found");
+      return null;
+    }
+
+    const question: SimpleQuestion = {
+      id: ques.id.toString(),
+      questionStatement: ques.questionStatement,
+      questionNumber: ques.questionNumber,
+      storylineId: ques.storylineId.toString(),
+      language: ques.language,
+      option1: ques.option1,
+      option2: ques.option2,
+      option3: ques.option3,
+      option4: ques.option4,
+      answer: ques.answer,
+    };
+    return question;
   } catch (error) {
     console.log(error);
     return null;
@@ -72,11 +69,11 @@ export const correct = async (
       return { error: "Storyline not found", status: 500 };
     }
 
-    if (questionNumber === storyline.questions) {
+    if (questionNumber > storyline.questions) {
       return { error: "No more Questions", status: 409 };
     }
 
-    if (questionNumber < storyline.questions) {
+    if (questionNumber <= storyline.questions) {
       user.progress[storylineId] = questionNumber;
       user.markModified("progress");
       await user.save();

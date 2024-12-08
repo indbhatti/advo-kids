@@ -1,10 +1,10 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, models, ObjectId } from "mongoose";
 
 export interface SimpleQuestion {
   id: string;
   questionStatement: string;
   questionNumber: number;
-  storylineNumber: number;
+  storylineId: string;
   language: string;
   option1: string;
   option2: string;
@@ -15,7 +15,7 @@ export interface SimpleQuestion {
 export interface QuestionSchema extends Document {
   questionStatement: string;
   questionNumber: number;
-  storylineNumber: number;
+  storylineId: ObjectId;
   language: string;
   option1: string;
   option2: string;
@@ -24,20 +24,22 @@ export interface QuestionSchema extends Document {
   answer: number;
 }
 const questionSchema = new mongoose.Schema<QuestionSchema>({
-  questionStatement: String,
-  questionNumber: Number,
-  storylineNumber: Number,
-  language: String,
-  option1: String,
-  option2: String,
-  option3: String,
-  option4: String,
-  answer: Number,
+  questionStatement: { type: String, required: true },
+  questionNumber: { type: Number, required: true },
+  storylineId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Storyline",
+    required: true,
+  },
+  language: { type: String, required: true },
+  option1: { type: String, required: true },
+  option2: { type: String, required: true },
+  option3: { type: String, required: true },
+  option4: { type: String, required: true },
+  answer: { type: Number, required: true },
 });
 
-// mongoose.models = {};
-const Question =
-  mongoose.models.Question || mongoose.model("Question", questionSchema);
+const Question = models.Question || mongoose.model("Question", questionSchema);
 // var User = mongoose.model('User', userSchema);
 
 export default Question;

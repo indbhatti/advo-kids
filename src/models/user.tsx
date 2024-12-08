@@ -16,10 +16,10 @@ export interface UserType extends Document {
 }
 
 const userSchema = new mongoose.Schema<UserType>({
-  name: String,
-  email: String,
-  password: String,
-  image: String,
+  name: { type: String },
+  email: { type: String, required: true, unique: true },
+  password: { type: String },
+  image: { type: String },
   progress: {
     type: Object,
     default: {},

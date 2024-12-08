@@ -1,28 +1,25 @@
 import mongoose, { Document } from "mongoose";
 
 export interface SimpleStoryline {
-  storyline_number: number;
+  _id: string;
   title: string;
   description: string;
   questions: number;
   language: string;
-  _id: string;
 }
 
 export interface StorylineSchema extends Document {
-  storyline_number: number;
   title: string;
   description: string;
   questions: number;
   language: string;
 }
 
-const storylineSchema = new mongoose.Schema({
-  storyline_number: Number,
-  title: String,
-  description: String,
-  questions: Number,
-  language: String,
+const storylineSchema = new mongoose.Schema<StorylineSchema>({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  questions: { type: Number, required: true },
+  language: { type: String, required: true },
 });
 
 // mongoose.models = {};

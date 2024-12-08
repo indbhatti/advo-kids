@@ -11,22 +11,20 @@ async function Quiz({ params }: { params: Promise<{ storyline: string }> }) {
   const storylineId = (await params).storyline;
 
   const session = await auth();
-  if (!session) {
+  if (!session || !session.user || !session.user.id) {
+    redirect(K.Links.SignIn);
+  }
+  const user: SimpleUser | null = await getUserById(session.user.id);
+
+  if (!user) {
     redirect(K.Links.SignIn);
   }
 
-  if (session?.user?.id) {
-    const user: SimpleUser | null = await getUserById(session.user.id);
-    if (user) {
-      return (
-        <div className="container my-10 mx-auto">
-          <QuizLogic storylineId={storylineId} user={user} />
-        </div>
-      );
-    }
-  } else {
-    redirect(K.Links.SignIn);
-  }
+  return (
+    <div className="container my-10 mx-auto">
+      <QuizLogic storylineId={storylineId} user={user} />
+    </div>
+  );
 }
 
 export default function Page({

@@ -87,7 +87,7 @@ export default function QuizLogic({
 
         <div className="m-5">
           <Video
-            src={`/question_videos/${language}/sl${currentQuestion.storylineNumber}/${currentQuestion.questionNumber}.mp4`}
+            src={`/question_videos/${language}/${currentQuestion.storylineId}/${currentQuestion.questionNumber}.mp4`}
           />
           <h1 className="text-5xl mt-5 font-sans font-extrabold">
             {language === "English" ? "Question" : hindi.quesiton}{" "}
