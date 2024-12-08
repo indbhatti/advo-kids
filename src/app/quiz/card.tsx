@@ -21,7 +21,7 @@ export default async function Card({
   return (
     <div
       className="container mx-auto my-14 flex flex-col-reverse sm:flex-row
-     items-center sm:items-start justify-between rounded-lg border shadow-lg p-10"
+     items-center sm:items-start justify-between rounded-lg border dark:border-gray-800 dark:bg-zinc-950 shadow-lg p-10"
     >
       <div className="sm:w-1/2 flex flex-col h-full">
         <h1 className="text-4xl font-extrabold text-body-emphasis my-5">
@@ -31,16 +31,16 @@ export default async function Card({
         {noOfQuestions && (
           <div className="w-full mt-5">
             <div className="flex justify-between mb-1">
-              <span className="text-base font-medium text-blue-700">
+              <span className="text-base font-medium text-blue-700 dark:text-blue-300">
                 Progress
               </span>
-              <span className="text-sm font-medium text-blue-700">
+              <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
                 {progress || 0}/{noOfQuestions}
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-2.5">
               <div
-                className="bg-blue-600 h-2.5 rounded-full"
+                className="bg-blue-600 dark:bg-blue-300 h-2.5 rounded-full"
                 style={{ width: `${((progress || 0) / noOfQuestions) * 100}%` }}
               ></div>
             </div>

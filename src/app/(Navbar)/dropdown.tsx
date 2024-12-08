@@ -4,6 +4,7 @@ import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
+import ThemeChanger from "./themeChanger";
 
 export default function Dropdown({ session }: { session: Session }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +52,7 @@ export default function Dropdown({ session }: { session: Session }) {
             >
               SignOut
             </li>
+            <ThemeChanger />
           </ul>
         </div>
       )}
