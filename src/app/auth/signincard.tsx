@@ -1,31 +1,34 @@
 "use client";
-import { K } from "@/util/constants";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 
 interface CardProps {
-  auth: string;
+  auth?: string;
+  loading: boolean;
+  handleClick: () => void;
 }
 
-export default function Card({ auth }: CardProps) {
+export default function Card({
+  auth = "Google",
+  loading,
+  handleClick,
+}: CardProps) {
   return (
-    <div className="">
-      <button
-        className="bg-yellow-400 pr-4 mt-5 rounded-lg shadow shadow-gray-500 text-white hover:bg-yellow-500"
-        onClick={() =>
-          signIn(auth.toLowerCase(), { callbackUrl: K.Links.Quiz })
-        }
-        role="button"
-      >
-        <Image
-          src={`/${auth.toLowerCase()}.png`}
-          height="64"
-          width="64"
-          alt=""
-          className="inline mr-2"
-        />
-        Sign In with {auth}
-      </button>
-    </div>
+    <button
+      className={`${
+        loading ? "bg-gray-500" : "bg-yellow-400 hover:bg-yellow-500"
+      } pr-4 rounded-lg shadow p-2 shadow-gray-500 text-white`}
+      onClick={handleClick}
+      disabled={loading}
+      role="button"
+    >
+      <Image
+        src={`/${auth.toLowerCase()}.svg`}
+        height="40"
+        width="40"
+        alt="Google"
+        className="inline mr-2"
+      />
+      Sign In with {auth}
+    </button>
   );
 }

@@ -22,6 +22,7 @@ export default function QuizLogic({
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(
     user.progress[storylineId] || 0
   );
+  const [loading, setLoading] = useState<boolean>(false);
   const language = "English";
 
   useEffect(() => {
@@ -47,6 +48,8 @@ export default function QuizLogic({
   if (currentQuestion != undefined) {
     const handleClick = async () => {
       if (selectedOption === currentQuestion.answer) {
+        setLoading(true);
+        setIsCorrect("YES");
         try {
           const response = await correct(
             user._id,
@@ -59,9 +62,11 @@ export default function QuizLogic({
           if (response?.status === 409) {
             setIsCorrect("FINISH");
           }
+          setSelectedOption(0);
         } catch (error) {
           console.error(error);
         }
+        setLoading(false);
       } else {
         setIsCorrect("NO");
       }
@@ -79,6 +84,7 @@ export default function QuizLogic({
     return (
       <div className="container bg-opacity-30 bg-gray-300 p-1 rounded-3xl">
         <IsCorrect
+          loading={loading}
           language={language}
           isCorrect={isCorrect}
           setIsCorrect={setIsCorrect}

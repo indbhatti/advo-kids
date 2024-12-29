@@ -4,7 +4,7 @@ import Why from "./why";
 
 export default function Page() {
   return (
-    <div>
+    <div className="">
       <Hero />
       <About />
       <Why />

@@ -27,7 +27,7 @@ export const register = async ({
       name,
       email,
       password: await hash(password, 12),
-      image: "./default.png",
+      image: null,
       progress: {},
       emailVerified: false,
     });

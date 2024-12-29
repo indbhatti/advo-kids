@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 
 interface Props {
   submit(user: { email: string; password: string; name: string }): void;
+  loading: boolean;
 }
 
-export default function Form({ submit }: Props) {
+export default function Form({ submit, loading }: Props) {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -93,10 +94,12 @@ export default function Form({ submit }: Props) {
           }}
           type="button"
           className={`text-white rounded-lg p-2 mt-5 ${
-            verify ? "bg-gray-500 hover:bg-gray-600" : "bg-red-800"
+            verify
+              ? "bg-blue-500 hover:bg-blue-600 cursor-pointer"
+              : "bg-gray-500 cursor-default"
           } `}
         >
-          Register
+          {loading ? "Loading..." : "Register"}
         </button>
       </form>
       <div className="flex flex-col">

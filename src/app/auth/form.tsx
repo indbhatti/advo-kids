@@ -5,9 +5,10 @@ import { useState } from "react";
 
 interface Props {
   submit(user: { username: string; password: string }): void;
+  loading: boolean;
 }
 
-export default function Form({ submit }: Props) {
+export default function Form({ submit, loading }: Props) {
   const [user, setUser] = useState({ username: "", password: "" });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -48,15 +49,18 @@ export default function Form({ submit }: Props) {
             submit(user);
           }}
           type="button"
-          className="text-white bg-gray-500 rounded-lg p-2 mt-5 hover:bg-gray-600"
+          className={`text-white ${
+            loading ? "bg-gray-500" : "bg-blue-500 hover:bg-blue-600"
+          } rounded-lg p-2 mt-5`}
+          disabled={loading}
         >
-          Login
+          {loading ? "Loading..." : "Login"}
         </button>
       </form>
       <div className="flex flex-col">
         <Link
           href="/auth/register"
-          className="text-white bg-gray-500 rounded-lg p-2 mt-5 hover:bg-gray-600 text-center"
+          className="text-white bg-blue-500 hover:bg-blue-600 rounded-lg p-2 mt-5 text-center"
         >
           <button>Sign Up</button>
         </Link>

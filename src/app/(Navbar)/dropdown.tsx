@@ -3,20 +3,42 @@ import { K } from "@/util/constants";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ThemeChanger from "./themeChanger";
 
 export default function Dropdown({ session }: { session: Session }) {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(e.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   return (
-    <div className="relative text-black">
+    <div className="relative text-black" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2"
       >
         <div className="bg-white rounded-full h-10 w-10 overflow-hidden">
-          <img src={`${session?.user?.image}`} alt="IMG" />
+          <img
+            src={`${session?.user?.image || "/default.png"}`}
+            alt="IMG"
+            width={40}
+            height={40}
+          />
         </div>
         <span className="text-gray-800">{session.user?.name}</span>
         <svg
@@ -38,12 +60,6 @@ export default function Dropdown({ session }: { session: Session }) {
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
               <Link href={K.Links.Quiz}>Storyline Menu</Link>
             </li>
-            {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <Link href="/profile">Profile</Link>
-            </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-              <Link href="/profile/settings/">Settings</Link>
-            </li> */}
             <li
               className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => {
